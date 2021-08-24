@@ -188,7 +188,7 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnConsultarCliente" linkSize="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConsultarCliente" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -212,7 +212,7 @@
                       <Component id="txtIDCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="167" max="32767" attributes="0"/>
-                  <Component id="btnConsultarCliente" linkSize="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConsultarCliente" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
