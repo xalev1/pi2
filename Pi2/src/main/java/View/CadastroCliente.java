@@ -5,6 +5,8 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mathe
@@ -84,6 +86,11 @@ public class CadastroCliente extends javax.swing.JDialog {
         btnCadastrarCliente.setText("Cadastrar");
 
         btnCancelarCadastro.setText("Cancelar");
+        btnCancelarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelCadastroClienteLayout = new javax.swing.GroupLayout(painelCadastroCliente);
         painelCadastroCliente.setLayout(painelCadastroClienteLayout);
@@ -204,6 +211,23 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
+        int teste = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar esse cadastro?");
+        
+        if (teste == 0) {
+            txtNomeCompletoCliente.setText("");
+            txtCPFCliente.setText("");
+            txtNascimentoCliente.setText("");
+            txtEnderecoCliente.setText("");
+            txtBairroCliente.setText("");
+            txtCepCliente.setText("");
+            txtCidadeCliente.setText("");
+            txtContatoCliente.setText("");
+            txtEmailCliente.setText("");
+            txtObservacaoCliente.setText("");
+        }
+    }//GEN-LAST:event_btnCancelarCadastroActionPerformed
 
     /**
      * @param args the command line arguments
