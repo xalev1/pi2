@@ -11,12 +11,12 @@ import javax.swing.JOptionPane;
  *
  * @author mathe
  */
-public class CadastroCliente extends javax.swing.JDialog {
+public class AtualizacaoCliente extends javax.swing.JDialog {
 
     /**
      * Creates new form CadastroCliente
      */
-    public CadastroCliente(java.awt.Frame parent, boolean modal) {
+    public AtualizacaoCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -83,7 +83,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         lblCidade.setText("Cidade:");
 
-        btnCadastrarCliente.setText("Cadastrar");
+        btnCadastrarCliente.setText("Atualizar");
         btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarClienteActionPerformed(evt);
@@ -218,19 +218,10 @@ public class CadastroCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
-        int teste = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar esse cadastro?");
+        int teste = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar essa atualização?");
         
         if (teste == 0) {
-            txtNomeCompletoCliente.setText("");
-            txtCPFCliente.setText("");
-            txtNascimentoCliente.setText("");
-            txtEnderecoCliente.setText("");
-            txtBairroCliente.setText("");
-            txtCepCliente.setText("");
-            txtCidadeCliente.setText("");
-            txtContatoCliente.setText("");
-            txtEmailCliente.setText("");
-            txtObservacaoCliente.setText("");
+            dispose();
         }
     }//GEN-LAST:event_btnCancelarCadastroActionPerformed
 
@@ -255,20 +246,21 @@ public class CadastroCliente extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizacaoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizacaoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizacaoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizacaoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CadastroCliente dialog = new CadastroCliente(new javax.swing.JFrame(), true);
+                AtualizacaoCliente dialog = new AtualizacaoCliente(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

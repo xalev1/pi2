@@ -58,6 +58,11 @@ public class ClienteView extends javax.swing.JFrame {
         });
 
         btnAtualizarCliente.setText("Atualizar");
+        btnAtualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarClienteActionPerformed(evt);
+            }
+        });
 
         btnExcluirCliente.setText("Excluir");
         btnExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -220,6 +225,11 @@ public class ClienteView extends javax.swing.JFrame {
     private void txtIDClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDClienteActionPerformed
+
+    private void btnAtualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarClienteActionPerformed
+        AtualizacaoCliente janelaAtualizacaoCliente = new AtualizacaoCliente(this, true);
+        janelaAtualizacaoCliente.setVisible(true);
+    }//GEN-LAST:event_btnAtualizarClienteActionPerformed
 
     /**
      * @param args the command line arguments
