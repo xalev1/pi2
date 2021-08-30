@@ -42,8 +42,8 @@ public class ClienteView extends javax.swing.JFrame {
         idCliente = new javax.swing.JLabel();
         btnConsultarCliente = new javax.swing.JButton();
         txtNomeCliente = new javax.swing.JTextField();
-        txtCPFCliente = new javax.swing.JTextField();
         txtIDCliente = new javax.swing.JTextField();
+        txtCPFCliente = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Clientes");
@@ -133,30 +133,38 @@ public class ClienteView extends javax.swing.JFrame {
             }
         });
 
+        try {
+            txtCPFCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout informacoesClienteLayout = new javax.swing.GroupLayout(informacoesCliente);
         informacoesCliente.setLayout(informacoesClienteLayout);
         informacoesClienteLayout.setHorizontalGroup(
             informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(informacoesClienteLayout.createSequentialGroup()
-                .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomeCliente)
-                    .addComponent(cpfCliente)
-                    .addComponent(idCliente))
-                .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(informacoesClienteLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNomeCliente))
-                    .addGroup(informacoesClienteLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(txtIDCliente))
-                    .addGroup(informacoesClienteLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(txtCPFCliente)))
-                .addGap(12, 12, 12))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, informacoesClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(165, Short.MAX_VALUE)
                 .addComponent(btnConsultarCliente)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, informacoesClienteLayout.createSequentialGroup()
+                .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(informacoesClienteLayout.createSequentialGroup()
+                        .addComponent(cpfCliente)
+                        .addGap(16, 16, 16)
+                        .addComponent(txtCPFCliente))
+                    .addGroup(informacoesClienteLayout.createSequentialGroup()
+                        .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeCliente)
+                            .addComponent(idCliente))
+                        .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(informacoesClienteLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNomeCliente))
+                            .addGroup(informacoesClienteLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(txtIDCliente)))))
+                .addGap(12, 12, 12))
         );
         informacoesClienteLayout.setVerticalGroup(
             informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +173,7 @@ public class ClienteView extends javax.swing.JFrame {
                 .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeCliente)
                     .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cpfCliente)
                     .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -187,7 +195,7 @@ public class ClienteView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(opcaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(informacoesCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -279,7 +287,7 @@ public class ClienteView extends javax.swing.JFrame {
     private javax.swing.JLabel nomeTela;
     private javax.swing.JPanel opcaoCliente;
     private javax.swing.JTable tabelaClientes;
-    private javax.swing.JTextField txtCPFCliente;
+    private javax.swing.JFormattedTextField txtCPFCliente;
     private javax.swing.JTextField txtIDCliente;
     private javax.swing.JTextField txtNomeCliente;
     // End of variables declaration//GEN-END:variables
