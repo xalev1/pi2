@@ -39,16 +39,14 @@ public class ProdutoView extends javax.swing.JFrame {
         informacoesProduto = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblTipo = new javax.swing.JLabel();
-        lblID = new javax.swing.JLabel();
         btnConsultarProduto = new javax.swing.JButton();
         txtNome = new javax.swing.JTextField();
-        txtID = new javax.swing.JTextField();
         cmbTipo = new javax.swing.JComboBox<>();
         lblMarca = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tela de Clientes");
+        setTitle("Tela de Produtos");
 
         opcaoProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Opções de Produto"));
 
@@ -137,15 +135,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
         lblTipo.setText("Tipo:");
 
-        lblID.setText("ID:");
-
         btnConsultarProduto.setText("Consultar Produto");
-
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
 
         lblMarca.setText("Marca:");
 
@@ -167,13 +157,11 @@ public class ProdutoView extends javax.swing.JFrame {
                         .addComponent(btnConsultarProduto))
                     .addGroup(informacoesProdutoLayout.createSequentialGroup()
                         .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblID)
                             .addComponent(lblTipo)
                             .addComponent(lblNome)
                             .addComponent(lblMarca))
                         .addGap(18, 18, 18)
                         .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                             .addComponent(cmbTipo, 0, 198, Short.MAX_VALUE)
                             .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                             .addComponent(txtMarca))
@@ -181,7 +169,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        informacoesProdutoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbTipo, txtID, txtNome});
+        informacoesProdutoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbTipo, txtNome});
 
         informacoesProdutoLayout.setVerticalGroup(
             informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,13 +184,9 @@ public class ProdutoView extends javax.swing.JFrame {
                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblID)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMarca)
                     .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(btnConsultarProduto)
                 .addContainerGap())
         );
@@ -252,10 +236,6 @@ public class ProdutoView extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?", "Excluir Cliente",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         CadastroProduto janelaAtualizacaoCliente = new CadastroProduto(this, true,1);
@@ -310,14 +290,12 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JPanel informacoesProduto;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblMarca;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JLabel nomeTela;
     private javax.swing.JPanel opcaoProduto;
     private javax.swing.JTable tabelaClientes;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
