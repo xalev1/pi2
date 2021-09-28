@@ -235,7 +235,7 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIDClienteActionPerformed
 
     private void btnAtualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarClienteActionPerformed
-        AtualizacaoCliente janelaAtualizacaoCliente = new AtualizacaoCliente(this, true);
+        CadastroCliente janelaAtualizacaoCliente = new CadastroCliente(this, true,1);
         janelaAtualizacaoCliente.setVisible(true);
     }//GEN-LAST:event_btnAtualizarClienteActionPerformed
 

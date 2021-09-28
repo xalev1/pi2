@@ -20,6 +20,14 @@ public class CadastroCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
+    
+    public CadastroCliente(java.awt.Frame parent, boolean modal,int id) {
+        super(parent, modal);
+        initComponents();
+        if(id != 0){
+            this.btnCadastrarCliente.setText("Atualizar");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
