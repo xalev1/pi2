@@ -62,7 +62,7 @@ public class CadastroProduto extends javax.swing.JDialog {
         txtCdFiscal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Cliente");
+        setTitle("Cadastro de Produto");
 
         painelCadastroProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro Produtos"));
 
