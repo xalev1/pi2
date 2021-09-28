@@ -27,7 +27,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="opcaoCliente" min="-2" pref="305" max="-2" attributes="0"/>
+                  <Component id="opcaoCliente" min="-2" max="-2" attributes="0"/>
                   <Component id="informacoesCliente" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="19" max="32767" attributes="0"/>
@@ -80,7 +80,7 @@
                   <Component id="btnAtualizarCliente" linkSize="1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnExcluirCliente" linkSize="1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -168,7 +168,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="165" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnConsultarCliente" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
