@@ -268,6 +268,7 @@ public class ClienteView extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            // teste
             public void run() {
                 new ClienteView().setVisible(true);
             }
