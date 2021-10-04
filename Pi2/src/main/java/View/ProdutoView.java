@@ -44,7 +44,7 @@ public class ProdutoView extends javax.swing.JFrame {
         cmbTipo = new javax.swing.JComboBox<>();
         lblMarca = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        menuVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Produtos");
@@ -127,6 +127,7 @@ public class ProdutoView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaClientes);
 
         nomeTela.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        nomeTela.setForeground(new java.awt.Color(1, 90, 6));
         nomeTela.setText("Produtos");
 
         informacoesProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do Produto"));
@@ -192,10 +193,10 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setText("Menu");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        menuVoltar.setText("Menu");
+        menuVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                menuVoltarActionPerformed(evt);
             }
         });
 
@@ -213,8 +214,8 @@ public class ProdutoView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(266, 266, 266)
+                        .addComponent(menuVoltar)
+                        .addGap(303, 303, 303)
                         .addComponent(nomeTela)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -225,7 +226,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeTela)
-                    .addComponent(jButton1))
+                    .addComponent(menuVoltar))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -257,11 +258,11 @@ public class ProdutoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMarcaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void menuVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVoltarActionPerformed
         
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_menuVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,11 +307,11 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JPanel informacoesProduto;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMarca;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTipo;
+    private javax.swing.JButton menuVoltar;
     private javax.swing.JLabel nomeTela;
     private javax.swing.JPanel opcaoProduto;
     private javax.swing.JTable tabelaClientes;
