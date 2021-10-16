@@ -9,23 +9,20 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author mathe
+ * @author paulo
  */
-public class CadastroProduto extends javax.swing.JDialog {
+public class ManterProduto extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form CadastroCliente
+     * Creates new form ManterProduto
      */
-    public CadastroProduto(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public ManterProduto() {
         initComponents();
     }
-    
-    
-    public CadastroProduto(java.awt.Frame parent, boolean modal,int id) {
-        super(parent, modal);
+
+    public ManterProduto(int id) {
         initComponents();
-        if(id != 0){
+        if (id != 0) {
             this.btnCadastrar.setText("Atualizar");
         }
     }
@@ -61,8 +58,7 @@ public class CadastroProduto extends javax.swing.JDialog {
         txtValidade = new javax.swing.JFormattedTextField();
         txtCdFiscal = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Produto");
+        setClosable(true);
 
         painelCadastroProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro Produtos"));
 
@@ -150,9 +146,6 @@ public class CadastroProduto extends javax.swing.JDialog {
                         .addComponent(btnCadastrar)))
                 .addContainerGap())
         );
-
-        painelCadastroProdutoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbTipo, txtCdFiscal, txtCodigo, txtDescricao, txtMarca, txtNome, txtQtdEstoque, txtValidade, txtValor});
-
         painelCadastroProdutoLayout.setVerticalGroup(
             painelCadastroProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastroProdutoLayout.createSequentialGroup()
@@ -199,8 +192,6 @@ public class CadastroProduto extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelCadastroProdutoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbTipo, txtCdFiscal, txtCodigo, txtDescricao, txtMarca, txtNome, txtQtdEstoque, txtValidade, txtValor});
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -221,9 +212,13 @@ public class CadastroProduto extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
     private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
-        int resp = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar esse cadastro?","Confirme",JOptionPane.YES_NO_OPTION);
-        
+        int resp = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar esse cadastro?", "Confirme", JOptionPane.YES_NO_OPTION);
+
         if (resp == 0) {
             this.txtCdFiscal.setText("");
             this.txtCodigo.setText("");
@@ -236,56 +231,10 @@ public class CadastroProduto extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCancelarCadastroActionPerformed
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCadastrarActionPerformed
-
     private void txtValidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValidadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValidadeActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CadastroProduto dialog = new CadastroProduto(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
