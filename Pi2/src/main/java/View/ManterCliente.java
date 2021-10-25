@@ -61,6 +61,9 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         btnCancelarCadastro = new javax.swing.JButton();
         txtCepCliente = new javax.swing.JFormattedTextField();
         txtContatoCliente = new javax.swing.JFormattedTextField();
+        lblNascimento1 = new javax.swing.JLabel();
+        rbtSexoMasculino = new javax.swing.JRadioButton();
+        rbtSexoFeminino = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -122,6 +125,22 @@ public class ManterCliente extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
+        lblNascimento1.setText("Sexo:");
+
+        rbtSexoMasculino.setText("Masculino");
+        rbtSexoMasculino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtSexoMasculinoActionPerformed(evt);
+            }
+        });
+
+        rbtSexoFeminino.setText("Feminino");
+        rbtSexoFeminino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtSexoFemininoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelCadastroClienteLayout = new javax.swing.GroupLayout(painelCadastroCliente);
         painelCadastroCliente.setLayout(painelCadastroClienteLayout);
         painelCadastroClienteLayout.setHorizontalGroup(
@@ -149,7 +168,8 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                                     .addComponent(lblObservacao)
                                     .addComponent(lblEndereco)
                                     .addComponent(lblBairro)
-                                    .addComponent(lblCPF))
+                                    .addComponent(lblCPF)
+                                    .addComponent(lblNascimento1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtCPFCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
@@ -160,7 +180,11 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                                     .addComponent(txtEmailCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                                     .addComponent(txtObservacaoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                                     .addComponent(txtCepCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtContatoCliente)))))
+                                    .addComponent(txtContatoCliente)
+                                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
+                                        .addComponent(rbtSexoMasculino)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(rbtSexoFeminino))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroClienteLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelarCadastro)
@@ -183,7 +207,12 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCPF)
                     .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNascimento1)
+                    .addComponent(rbtSexoMasculino)
+                    .addComponent(rbtSexoFeminino))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNascimento)
                     .addComponent(txtNascimentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,7 +244,7 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblObservacao)
                     .addComponent(txtObservacaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrarCliente)
                     .addComponent(btnCancelarCadastro))
@@ -263,6 +292,14 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnCancelarCadastroActionPerformed
 
+    private void rbtSexoMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSexoMasculinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtSexoMasculinoActionPerformed
+
+    private void rbtSexoFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSexoFemininoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtSexoFemininoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarCliente;
@@ -276,9 +313,12 @@ public class ManterCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblNascimento;
+    private javax.swing.JLabel lblNascimento1;
     private javax.swing.JLabel lblNomeCompleto;
     private javax.swing.JLabel lblObservacao;
     private javax.swing.JPanel painelCadastroCliente;
+    private javax.swing.JRadioButton rbtSexoFeminino;
+    private javax.swing.JRadioButton rbtSexoMasculino;
     private javax.swing.JTextField txtBairroCliente;
     private javax.swing.JFormattedTextField txtCPFCliente;
     private javax.swing.JFormattedTextField txtCepCliente;
