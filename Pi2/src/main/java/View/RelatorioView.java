@@ -5,6 +5,8 @@
  */
 package View;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author paulo
@@ -14,8 +16,10 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     /**
      * Creates new form RelatorioView
      */
-    public RelatorioView() {
+    private JDesktopPane desk;
+    public RelatorioView(JDesktopPane desk) {
         initComponents();
+        this.desk = desk;
     }
 
     /**

@@ -5,6 +5,8 @@
  */
 package View;
 
+import java.util.ArrayList;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,14 +18,17 @@ public class ManterProduto extends javax.swing.JInternalFrame {
     /**
      * Creates new form ManterProduto
      */
-    public ManterProduto() {
+    private JDesktopPane desk;
+    public ManterProduto(JDesktopPane desk) {
         initComponents();
+        this.desk = desk;
     }
 
     public ManterProduto(int id) {
         initComponents();
         if (id != 0) {
             this.btnCadastrar.setText("Atualizar");
+            this.txtCodigo.setText(String.valueOf(id));
         }
     }
 
@@ -87,7 +92,7 @@ public class ManterProduto extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancelarCadastro.setText("Cancelar");
+        btnCancelarCadastro.setText("Limpar");
         btnCancelarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarCadastroActionPerformed(evt);
@@ -95,9 +100,15 @@ public class ManterProduto extends javax.swing.JInternalFrame {
         });
 
         txtCodigo.setToolTipText("");
+        txtCodigo.setEnabled(false);
 
-        txtValidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        txtValidade.setText("  /  /   ");
+        txtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
+        try {
+            txtValidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtValidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValidadeActionPerformed(evt);
@@ -213,13 +224,14 @@ public class ManterProduto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
+        this.validar();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
         int resp = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar esse cadastro?", "Confirme", JOptionPane.YES_NO_OPTION);
 
         if (resp == 0) {
+            
             this.txtCdFiscal.setText("");
             this.txtCodigo.setText("");
             this.txtDescricao.setText("");
@@ -235,6 +247,30 @@ public class ManterProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValidadeActionPerformed
 
+    private void validar(){
+        ArrayList<String> erros = new ArrayList<>();
+        if (this.txtCdFiscal.getText().isBlank()) {
+            erros.add("Código fiscal");
+        }
+        if (this.txtCodigo.getText().isBlank()) {
+            erros.add("Código");
+        }
+        if (this.txtNome.getText().isBlank()) {
+            erros.add("Nome");
+        }
+        if (this.txtValor.getText().isBlank()) {
+            erros.add("Valor");
+        }
+
+        
+        if(!erros.isEmpty()){
+            String errosString="";
+            for (String erro : erros) {
+                errosString =errosString+ erro+"\n";
+            }
+            JOptionPane.showMessageDialog(this, "Estes campos devem ser preenchidos:\n" + errosString);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;

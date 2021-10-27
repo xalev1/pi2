@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="btgSexo">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
   </Properties>
@@ -55,7 +59,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -81,18 +85,32 @@
                                       <Component id="lblEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblBairro" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblCPF" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblObservacao1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtCPFCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                      <Component id="txtNascimentoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                      <Component id="txtEnderecoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                      <Component id="txtBairroCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                      <Component id="txtCidadeCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                      <Component id="txtEmailCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                      <Component id="txtObservacaoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                      <Component id="txtCepCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                      <Component id="txtContatoCliente" alignment="0" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtCPFCliente" alignment="0" pref="480" max="32767" attributes="0"/>
+                                              <Component id="txtNascimentoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
+                                              <Component id="txtEnderecoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
+                                              <Component id="txtBairroCliente" alignment="0" pref="480" max="32767" attributes="0"/>
+                                              <Component id="txtCidadeCliente" alignment="0" pref="480" max="32767" attributes="0"/>
+                                              <Component id="txtEmailCliente" alignment="0" pref="480" max="32767" attributes="0"/>
+                                              <Component id="txtObservacaoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
+                                              <Component id="txtCepCliente" alignment="0" pref="480" max="32767" attributes="0"/>
+                                              <Component id="txtContatoCliente" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -166,7 +184,14 @@
                       <Component id="lblObservacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtObservacaoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="50" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblObservacao1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnCadastrarCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancelarCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -233,6 +258,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCodigoCliente">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNomeCompletoCliente">
         </Component>
@@ -245,8 +273,8 @@
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtNascimentoCliente">
           <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="2" type="1"/>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="##/##/####" subtype="-1" type="5"/>
             </Property>
           </Properties>
         </Component>
@@ -270,7 +298,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelarCadastro">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="text" type="java.lang.String" value="Limpar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarCadastroActionPerformed"/>
@@ -288,6 +316,36 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="(##) #####-####" subtype="-1" type="5"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblObservacao1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Sexo:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="btgSexo"/>
+            </Property>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="Masculino"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="btgSexo"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Feminino"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="btgSexo"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="N&#xe3;o declarar"/>
           </Properties>
         </Component>
       </SubComponents>

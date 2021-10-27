@@ -5,6 +5,8 @@
  */
 package View;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author paulo
@@ -14,8 +16,10 @@ public class VendaView extends javax.swing.JInternalFrame {
     /**
      * Creates new form VendaView
      */
-    public VendaView() {
+    private JDesktopPane desk;
+    public VendaView(JDesktopPane desk) {
         initComponents();
+        this.desk = desk;
     }
 
     /**

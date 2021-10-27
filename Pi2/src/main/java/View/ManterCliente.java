@@ -5,6 +5,8 @@
  */
 package View;
 
+import java.util.ArrayList;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,14 +18,18 @@ public class ManterCliente extends javax.swing.JInternalFrame {
     /**
      * Creates new form ManterCliente
      */
-    public ManterCliente() {
+    private JDesktopPane desk;
+
+    public ManterCliente(JDesktopPane desk) {
         initComponents();
+        this.desk = desk;
     }
 
     ManterCliente(int i) {
         initComponents();
         if (i != 0) {
             this.btnCadastrarCliente.setText("Atualizar");
+            this.txtCodigoCliente.setText(String.valueOf(i));
         }
     }
 
@@ -36,6 +42,7 @@ public class ManterCliente extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btgSexo = new javax.swing.ButtonGroup();
         painelCadastroCliente = new javax.swing.JPanel();
         lblContato = new javax.swing.JLabel();
         lblObservacao = new javax.swing.JLabel();
@@ -61,6 +68,10 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         btnCancelarCadastro = new javax.swing.JButton();
         txtCepCliente = new javax.swing.JFormattedTextField();
         txtContatoCliente = new javax.swing.JFormattedTextField();
+        lblObservacao1 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -88,13 +99,19 @@ public class ManterCliente extends javax.swing.JInternalFrame {
 
         lblCidade.setText("Cidade:");
 
+        txtCodigoCliente.setEnabled(false);
+
         try {
             txtCPFCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
-        txtNascimentoCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
+        try {
+            txtNascimentoCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         btnCadastrarCliente.setText("Cadastrar");
         btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +120,7 @@ public class ManterCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancelarCadastro.setText("Cancelar");
+        btnCancelarCadastro.setText("Limpar");
         btnCancelarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarCadastroActionPerformed(evt);
@@ -121,6 +138,18 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        lblObservacao1.setText("Sexo:");
+
+        btgSexo.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Masculino");
+
+        btgSexo.add(jRadioButton2);
+        jRadioButton2.setText("Feminino");
+
+        btgSexo.add(jRadioButton3);
+        jRadioButton3.setText("Não declarar");
 
         javax.swing.GroupLayout painelCadastroClienteLayout = new javax.swing.GroupLayout(painelCadastroCliente);
         painelCadastroCliente.setLayout(painelCadastroClienteLayout);
@@ -149,18 +178,29 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                                     .addComponent(lblObservacao)
                                     .addComponent(lblEndereco)
                                     .addComponent(lblBairro)
-                                    .addComponent(lblCPF))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCPFCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtNascimentoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtEnderecoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtBairroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtCidadeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtEmailCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtObservacaoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtCepCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                    .addComponent(txtContatoCliente)))))
+                                    .addComponent(lblCPF)
+                                    .addComponent(lblObservacao1))
+                                .addGap(18, 18, 18)
+                                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtCPFCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                                            .addComponent(txtNascimentoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                                            .addComponent(txtEnderecoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                                            .addComponent(txtBairroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                                            .addComponent(txtCidadeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                                            .addComponent(txtEmailCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                                            .addComponent(txtObservacaoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                                            .addComponent(txtCepCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                                            .addComponent(txtContatoCliente)))
+                                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
+                                        .addComponent(jRadioButton1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRadioButton2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRadioButton3)
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroClienteLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelarCadastro)
@@ -215,7 +255,13 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblObservacao)
                     .addComponent(txtObservacaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3)
+                    .addComponent(lblObservacao1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrarCliente)
                     .addComponent(btnCancelarCadastro))
@@ -244,12 +290,14 @@ public class ManterCliente extends javax.swing.JInternalFrame {
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
         // TODO add your handling code here:
+        validar();
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
         int teste = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar esse cadastro?");
 
         if (teste == 0) {
+            txtCodigoCliente.setText("");
             txtNomeCompletoCliente.setText("");
             txtCPFCliente.setText("");
             txtNascimentoCliente.setText("");
@@ -261,12 +309,55 @@ public class ManterCliente extends javax.swing.JInternalFrame {
             txtEmailCliente.setText("");
             txtObservacaoCliente.setText("");
         }
+
     }//GEN-LAST:event_btnCancelarCadastroActionPerformed
 
+    private void validar() {
+        ArrayList<String> erros = new ArrayList<>();
+        if (this.txtNomeCompletoCliente.getText().isBlank()) {
+            erros.add("Nome Completo");
+        }
+        if (this.txtCPFCliente.getText().isBlank()) {
+            erros.add("CPF");
+        }
+        if (this.txtNascimentoCliente.getText().isBlank()) {
+            erros.add("Data de nascimento");
+        }
+        if (this.txtEnderecoCliente.getText().isBlank()) {
+            erros.add("Endereço");
+        }
+        if (this.txtBairroCliente.getText().isBlank()) {
+            erros.add("Bairro");
+        }
+        if (this.txtCepCliente.getText().isBlank()) {
+            erros.add("CEP");
+        }
+        if (this.txtCidadeCliente.getText().isBlank()) {
+            erros.add("Cidade");
+        }
+        if (this.txtContatoCliente.getText().isBlank()) {
+            erros.add("Contato");
+        }
+        if (this.txtEmailCliente.getText().isBlank()) {
+            erros.add("Email");
+        }
+        
+        if(!erros.isEmpty()){
+            String errosString="";
+            for (String erro : erros) {
+                errosString =errosString+ erro+"\n";
+            }
+            JOptionPane.showMessageDialog(this, "Estes campos devem ser preenchidos:\n" + errosString);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btgSexo;
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCancelarCadastro;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCep;
@@ -278,6 +369,7 @@ public class ManterCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNascimento;
     private javax.swing.JLabel lblNomeCompleto;
     private javax.swing.JLabel lblObservacao;
+    private javax.swing.JLabel lblObservacao1;
     private javax.swing.JPanel painelCadastroCliente;
     private javax.swing.JTextField txtBairroCliente;
     private javax.swing.JFormattedTextField txtCPFCliente;

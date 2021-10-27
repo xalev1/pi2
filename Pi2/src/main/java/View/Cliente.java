@@ -5,6 +5,7 @@
  */
 package View;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +17,9 @@ public class Cliente extends javax.swing.JInternalFrame {
     /**
      * Creates new form Cliente
      */
-    public Cliente() {
+    private JDesktopPane desk;
+    public Cliente(JDesktopPane desk) {
+        this.desk = desk;
         initComponents();
     }
 
@@ -217,13 +220,17 @@ public class Cliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
-        ManterCliente janelaCadastroCliente = new ManterCliente();
+        ManterCliente janelaCadastroCliente = new ManterCliente(desk);
         janelaCadastroCliente.setVisible(true);
+        desk.add(janelaCadastroCliente);
+        janelaCadastroCliente.toFront();
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnAtualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarClienteActionPerformed
         ManterCliente janelaAtualizacaoCliente = new ManterCliente(1);
         janelaAtualizacaoCliente.setVisible(true);
+        desk.add(janelaAtualizacaoCliente);
+        janelaAtualizacaoCliente.toFront();
     }//GEN-LAST:event_btnAtualizarClienteActionPerformed
 
     private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed

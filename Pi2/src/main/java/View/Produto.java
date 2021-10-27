@@ -5,6 +5,7 @@
  */
 package View;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,8 +17,10 @@ public class Produto extends javax.swing.JInternalFrame {
     /**
      * Creates new form Produto
      */
-    public Produto() {
+    private JDesktopPane desk;
+    public Produto(JDesktopPane desk) {
         initComponents();
+        this.desk = desk;        
     }
 
     /**
@@ -221,13 +224,17 @@ public class Produto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ManterProduto janelaCadastroCliente = new ManterProduto();
+        ManterProduto janelaCadastroCliente = new ManterProduto(desk);
         janelaCadastroCliente.setVisible(true);
+        desk.add(janelaCadastroCliente);
+        janelaCadastroCliente.toFront();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         ManterProduto janelaAtualizacaoCliente = new ManterProduto(1);
         janelaAtualizacaoCliente.setVisible(true);
+        desk.add(janelaAtualizacaoCliente);
+        janelaAtualizacaoCliente.toFront();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
