@@ -22,6 +22,7 @@ public class Clientes {
     private String contato;
     private String email;
     private String observacao;
+    private String Sexo;
 
     public Clientes(int id, String nomeCompleto, String CPF, String nascimento, String endereco, String bairro, String cidade, String cep, String contato, String email, String observacao) {
         this.id = id;

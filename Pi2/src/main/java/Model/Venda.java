@@ -15,12 +15,12 @@ import java.util.Date;
 public class Venda {
     private Clientes clienteVenda;
     //trocar por produto venda
-    private ArrayList<Produtos> produtos;
+    private ArrayList<ItemVenda> produtos;
     private Date data;
     private float total;
     private int quantidadeItens;
 
-    public Venda(Clientes clienteVenda, ArrayList<Produtos> produtos, Date data, float total, int quantidadeItens) {
+    public Venda(Clientes clienteVenda, ArrayList<ItemVenda> produtos, Date data, float total, int quantidadeItens) {
         this.clienteVenda = clienteVenda;
         this.produtos = produtos;
         this.data = data;
@@ -36,11 +36,11 @@ public class Venda {
         this.clienteVenda = clienteVenda;
     }
 
-    public ArrayList<Produtos> getProdutos() {
+    public ArrayList<ItemVenda> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(ArrayList<Produtos> produtos) {
+    public void setProdutos(ArrayList<ItemVenda> produtos) {
         this.produtos = produtos;
     }
 
