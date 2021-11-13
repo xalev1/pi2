@@ -13,6 +13,7 @@ import java.util.Date;
  * @author paulo
  */
 public class Venda {
+    private int idVenda;
     private Clientes clienteVenda;
     //trocar por produto venda
     private ArrayList<ItemVenda> produtos;
