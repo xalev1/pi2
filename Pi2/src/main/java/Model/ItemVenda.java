@@ -9,7 +9,8 @@ package Model;
  *
  * @author paulo
  */
-public class ItemVenda {            
+public class ItemVenda {
+    private int idVenda;
     private String codigo;
     private float quantidade;
     private float preco;
