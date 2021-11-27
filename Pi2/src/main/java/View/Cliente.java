@@ -296,13 +296,13 @@ public class Cliente extends javax.swing.JInternalFrame {
         if(this.txtCPFCliente.isEnabled()){
             
             cli.setCPF(txtCPFCliente.getText().replace(".", "").replace("-", ""));
-            listaClientes = ClienteDAO.consultarClientes(cli,"cpf");
+            listaClientes = ClienteController.getClientesByCPF(cli);
         }else if(this.txtIDCliente.isEnabled()){
             cli.setId(Integer.valueOf(this.txtIDCliente.getText()));
-            listaClientes = ClienteDAO.consultarClientes(cli,"id");
+            listaClientes = ClienteController.getClientesListById(Integer.valueOf(this.txtIDCliente.getText()));
         }else if(this.txtNomeCliente.isEnabled()){
             cli.setNomeCompleto(this.txtNomeCliente.getText());
-            listaClientes = ClienteDAO.consultarClientes(cli,"nome");
+            listaClientes = ClienteController.getClientesByNome(cli);
         }
         
        
@@ -330,7 +330,6 @@ public class Cliente extends javax.swing.JInternalFrame {
                 
         
         clienteController.getClientes();
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnConsultarClienteActionPerformed
 
     private void rdoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoIdActionPerformed

@@ -5,8 +5,15 @@
  */
 package View;
 
+import Controler.ProdutoController;
+import Model.Clientes;
+import Model.Produtos;
+import br.senac.sp.lab8.DAO.ClienteDAO;
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,9 +25,11 @@ public class Produto extends javax.swing.JInternalFrame {
      * Creates new form Produto
      */
     private JDesktopPane desk;
+
     public Produto(JDesktopPane desk) {
         initComponents();
-        this.desk = desk;        
+        this.desk = desk;
+        rdoNomeActionPerformed(null);
     }
 
     /**
@@ -32,12 +41,13 @@ public class Produto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btgFiltro = new javax.swing.ButtonGroup();
         opcaoProduto = new javax.swing.JPanel();
         btnCadastrar = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaClientes = new javax.swing.JTable();
+        tblProdutos = new javax.swing.JTable();
         nomeTela = new javax.swing.JLabel();
         informacoesProduto = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
@@ -47,6 +57,9 @@ public class Produto extends javax.swing.JInternalFrame {
         cmbTipo = new javax.swing.JComboBox<>();
         lblMarca = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
+        rdoNome = new javax.swing.JRadioButton();
+        rdoTipo = new javax.swing.JRadioButton();
+        rdoMarca = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -97,7 +110,7 @@ public class Produto extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -120,7 +133,7 @@ public class Produto extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tabelaClientes);
+        jScrollPane1.setViewportView(tblProdutos);
 
         nomeTela.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         nomeTela.setForeground(new java.awt.Color(1, 90, 6));
@@ -134,6 +147,11 @@ public class Produto extends javax.swing.JInternalFrame {
         lblTipo.setText("Tipo:");
 
         btnConsultarProduto.setText("Consultar Produto");
+        btnConsultarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarProdutoActionPerformed(evt);
+            }
+        });
 
         lblMarca.setText("Marca:");
 
@@ -143,16 +161,36 @@ public class Produto extends javax.swing.JInternalFrame {
             }
         });
 
+        btgFiltro.add(rdoNome);
+        rdoNome.setSelected(true);
+        rdoNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoNomeActionPerformed(evt);
+            }
+        });
+
+        btgFiltro.add(rdoTipo);
+        rdoTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoTipoActionPerformed(evt);
+            }
+        });
+
+        btgFiltro.add(rdoMarca);
+        rdoMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoMarcaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout informacoesProdutoLayout = new javax.swing.GroupLayout(informacoesProduto);
         informacoesProduto.setLayout(informacoesProdutoLayout);
         informacoesProdutoLayout.setHorizontalGroup(
             informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(informacoesProdutoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, informacoesProdutoLayout.createSequentialGroup()
-                        .addGap(0, 172, Short.MAX_VALUE)
-                        .addComponent(btnConsultarProduto))
+                .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnConsultarProduto)
                     .addGroup(informacoesProdutoLayout.createSequentialGroup()
                         .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTipo)
@@ -161,10 +199,14 @@ public class Produto extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbTipo, 0, 215, Short.MAX_VALUE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                            .addComponent(txtNome)
                             .addComponent(txtMarca))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rdoNome)
+                            .addComponent(rdoTipo)
+                            .addComponent(rdoMarca))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         informacoesProdutoLayout.setVerticalGroup(
             informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,15 +214,18 @@ public class Produto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdoNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTipo)
-                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdoTipo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(informacoesProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMarca)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdoMarca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(btnConsultarProduto)
                 .addContainerGap())
@@ -194,16 +239,15 @@ public class Produto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(opcaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(informacoesProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(362, 362, 362)
-                        .addComponent(nomeTela)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(nomeTela))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(opcaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(informacoesProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,22 +275,103 @@ public class Produto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        ManterProduto janelaAtualizacaoCliente = new ManterProduto(1);
+        ManterProduto janelaAtualizacaoCliente = new ManterProduto((int) tblProdutos.getModel().getValueAt(tblProdutos.getSelectedRow(), 0));
         janelaAtualizacaoCliente.setVisible(true);
         desk.add(janelaAtualizacaoCliente);
         janelaAtualizacaoCliente.toFront();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?", "Excluir Cliente",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?", "Excluir Cliente", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMarcaActionPerformed
 
+    private void btnConsultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarProdutoActionPerformed
+//Peço à classe DAO para consultar os clientes
+        Produtos prod = new Produtos();
+        ArrayList<Produtos> listaProdutos = null;
+        if (this.txtNome.isEnabled()) {
+            prod.setNome(txtNome.getText());
+            listaProdutos = ProdutoController.getProdutosByNome(prod);
+        } else if (this.txtMarca.isEnabled()) {
+            prod.setMarca(txtMarca.getText());
+            listaProdutos = ProdutoController.getProdutosByMarca(prod);
+        } else if (this.cmbTipo.isEnabled()) {
+            prod.setTipo(cmbTipo.getSelectedItem().toString());
+            listaProdutos = ProdutoController.getProdutosByTipo(prod);
+        }
+
+        DefaultTableModel tmClientes = new DefaultTableModel();
+        tmClientes.addColumn("ID");
+        tmClientes.addColumn("Nome");
+        tmClientes.addColumn("valor");
+        tmClientes.addColumn("validade");
+        tmClientes.addColumn("marca");
+
+        tblProdutos.setModel(tmClientes);
+        //Removo a coluna ID da View (JTable) mas mantenho na model para armazenar o ID
+        tblProdutos.removeColumn(tblProdutos.getColumnModel().getColumn(0));
+
+        //Limpo a tabela, excluindo todas as linhas para depois mostrar os dados novamente
+        tmClientes.setRowCount(0);
+
+        //Para cada cliente resgatado do banco de dados, atualizo a tabela
+        for (Produtos c : listaProdutos) {
+            tmClientes.addRow(new Object[]{c.getIdProduto(), c.getNome(), c.getValor(), c.getValidade(), c.getMarca()});
+        }
+        //Defino o tamanho para cada coluna
+//        tblClientes.getColumnModel().getColumn(0).setPreferredWidth(50); //ID
+        tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(300);
+        tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblProdutos.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(200);
+        tblProdutos.getColumnModel().getColumn(4).setPreferredWidth(200);
+        tblProdutos.setCellSelectionEnabled(false);
+        tblProdutos.setDefaultEditor(Object.class, null);
+
+
+    }//GEN-LAST:event_btnConsultarProdutoActionPerformed
+
+    private void rdoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNomeActionPerformed
+        this.txtNome.setEnabled(true);
+        this.txtMarca.setEnabled(false);
+        this.cmbTipo.setEnabled(false);
+        limpar();
+    }//GEN-LAST:event_rdoNomeActionPerformed
+
+    private void rdoTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoTipoActionPerformed
+        this.txtNome.setEnabled(false);
+        this.txtMarca.setEnabled(false);
+        this.cmbTipo.setEnabled(true);
+        limpar();
+    }//GEN-LAST:event_rdoTipoActionPerformed
+
+    private void rdoMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoMarcaActionPerformed
+        this.txtNome.setEnabled(false);
+        this.txtMarca.setEnabled(true);
+        this.cmbTipo.setEnabled(false);
+        limpar();
+    }//GEN-LAST:event_rdoMarcaActionPerformed
+
+    private void limpar() {
+        this.txtMarca.setText("");
+        this.txtNome.setText("");
+        listaTipos();
+    }
+
+    private void listaTipos() {
+        cmbTipo.removeAllItems();
+        for (String tipo : ProdutoController.getTipos()) {
+            cmbTipo.addItem(tipo);
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btgFiltro;
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnConsultarProduto;
@@ -259,7 +384,10 @@ public class Produto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTipo;
     private javax.swing.JLabel nomeTela;
     private javax.swing.JPanel opcaoProduto;
-    private javax.swing.JTable tabelaClientes;
+    private javax.swing.JRadioButton rdoMarca;
+    private javax.swing.JRadioButton rdoNome;
+    private javax.swing.JRadioButton rdoTipo;
+    private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables

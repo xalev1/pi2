@@ -7,7 +7,6 @@ package View;
 
 import Controler.ClienteController;
 import Model.Clientes;
-import br.senac.sp.lab8.DAO.ClienteDAO;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
@@ -333,7 +332,13 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                 clie.setObservacao(txtObservacaoCliente.getText());
                 clie.setSexo(btgSexo.getSelection().getActionCommand());
 
-                ClienteDAO.salvar(clie);
+                if(ClienteController.salvar(clie)){
+                    JOptionPane.showMessageDialog(this, "Salvo com sucesso");
+                    this.setVisible(false);
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(this, "Erro ao salvar, tente novamente mais tarde");
+                }
 
             } catch (Exception e) {
                 System.err.println(e.getMessage());

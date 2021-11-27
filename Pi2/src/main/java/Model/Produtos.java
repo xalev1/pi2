@@ -5,18 +5,56 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author paulo
  */
-public class Produtos {            
+public class Produtos {
+
+    private int idProduto;
     private String cdFiscal;
-    private String codigo;
     private String marca;
     private String nome;
-    private int qtdEstoque;
-    private String validade;
+    private float qtdEstoque;
+    private Date validade;
     private float valor;
+    private String tipo;
+    private String descricao;
+
+    public Produtos() {
+    }
+
+    public Produtos(int idProduto, String cdFiscal, String marca, String nome, float qtdEstoque, Date validade, float valor, String tipo, String descricao) {
+        this.idProduto = idProduto;
+        this.cdFiscal = cdFiscal;
+        this.marca = marca;
+        this.nome = nome;
+        this.qtdEstoque = qtdEstoque;
+        this.validade = validade;
+        this.valor = valor;
+        this.tipo = tipo;
+        this.descricao = descricao;
+    }
+    
+ 
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public String getCdFiscal() {
         return cdFiscal;
@@ -24,14 +62,6 @@ public class Produtos {
 
     public void setCdFiscal(String cdFiscal) {
         this.cdFiscal = cdFiscal;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getMarca() {
@@ -50,19 +80,19 @@ public class Produtos {
         this.nome = nome;
     }
 
-    public int getQtdEstoque() {
+    public float getQtdEstoque() {
         return qtdEstoque;
     }
 
-    public void setQtdEstoque(int qtdEstoque) {
+    public void setQtdEstoque(float qtdEstoque) {
         this.qtdEstoque = qtdEstoque;
     }
 
-    public String getValidade() {
+    public Date getValidade() {
         return validade;
     }
 
-    public void setValidade(String validade) {
+    public void setValidade(Date validade) {
         this.validade = validade;
     }
 
@@ -74,14 +104,13 @@ public class Produtos {
         this.valor = valor;
     }
 
-    public Produtos(String cdFiscal, String codigo, String marca, String nome, int qtdEstoque, String validade, float valor) {
-        this.cdFiscal = cdFiscal;
-        this.codigo = codigo;
-        this.marca = marca;
-        this.nome = nome;
-        this.qtdEstoque = qtdEstoque;
-        this.validade = validade;
-        this.valor = valor;
+    public int getIdProduto() {
+        return idProduto;
     }
-    
+
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
+    }
+
+
 }

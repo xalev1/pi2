@@ -5,10 +5,9 @@
  */
 package br.senac.sp.lab8.DAO;
 
-import Model.Clientes;
+import Model.Produtos;
 import bd.connection.GerenciadorConexao;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,46 +18,40 @@ import java.util.ArrayList;
  *
  * @author fernando.fernandes
  */
-public class ClienteDAO {
+public class ProdutoDAO {
 
-    public static boolean salvar(Clientes p) {
+    public static boolean salvar(Produtos p) {
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
         try {
             conexao = GerenciadorConexao.abrirConexao();
-            if (p.getId() == 0) {
-                instrucaoSQL = conexao.prepareStatement("INSERT INTO clientes (nomeCompleto,CPF,nascimento,endereco,cidade,bairro,cep,contato,email,observacao,sexo) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+            if (p.getIdProduto() == 0) {
+                instrucaoSQL = conexao.prepareStatement("INSERT INTO produtos (cdFiscal,marca,nome,tipo,qtdEstoque,validade,valor,descricao) VALUES(?,?,?,?,?,?,?,?)",
                         Statement.RETURN_GENERATED_KEYS);
 
-                instrucaoSQL.setString(1, p.getNomeCompleto());
-                instrucaoSQL.setString(2, p.getCPF());
-                instrucaoSQL.setDate(3, p.getNascimento());
-                instrucaoSQL.setString(4, p.getEndereco());
-                instrucaoSQL.setString(5, p.getCidade());
-                instrucaoSQL.setString(6, p.getBairro());
-                instrucaoSQL.setString(7, p.getCep());
-                instrucaoSQL.setString(8, p.getContato());
-                instrucaoSQL.setString(9, p.getEmail());
-                instrucaoSQL.setString(10, p.getObservacao());
-                instrucaoSQL.setString(11, p.getSexo());
+                instrucaoSQL.setString(1, p.getCdFiscal());
+                instrucaoSQL.setString(2, p.getMarca());
+                instrucaoSQL.setString(3, p.getNome());
+                instrucaoSQL.setString(4, p.getTipo());
+                instrucaoSQL.setFloat(5, p.getQtdEstoque());
+                instrucaoSQL.setDate(6, p.getValidade());
+                instrucaoSQL.setFloat(7, p.getValor());
+                instrucaoSQL.setString(8, p.getDescricao());
             } else {
-                instrucaoSQL = conexao.prepareStatement("UPDATE clientes SET nomeCompleto = ?,CPF = ?,nascimento = ?,endereco = ?,cidade = ?,bairro = ?,cep = ?,contato = ?,email = ?,observacao = ?,sexo = ? WHERE idCliente =? ");
+                instrucaoSQL = conexao.prepareStatement("UPDATE produtos SET cdFiscal = ?, marca = ?, nome = ?, tipo = ?, qtdEstoque = ?, validade = ?, valor = ?, descricao = ? WHERE idProduto =? ");
 
-                instrucaoSQL.setString(1, p.getNomeCompleto());
-                instrucaoSQL.setString(2, p.getCPF());
-                
-                instrucaoSQL.setDate(3, p.getNascimento());
-                instrucaoSQL.setString(4, p.getEndereco());
-                instrucaoSQL.setString(5, p.getCidade());
-                instrucaoSQL.setString(6, p.getBairro());
-                instrucaoSQL.setString(7, p.getCep());
-                instrucaoSQL.setString(8, p.getContato());
-                instrucaoSQL.setString(9, p.getEmail());
-                instrucaoSQL.setString(10, p.getObservacao());
-                instrucaoSQL.setString(11, p.getSexo());
-                instrucaoSQL.setInt(12, p.getId());
+                instrucaoSQL.setString(1, p.getCdFiscal());
+                instrucaoSQL.setString(2, p.getMarca());
+                instrucaoSQL.setString(3, p.getNome());
+                instrucaoSQL.setString(4, p.getTipo());
+                instrucaoSQL.setFloat(5, p.getQtdEstoque());
+                instrucaoSQL.setDate(6, p.getValidade());
+                instrucaoSQL.setFloat(7, p.getValor());
+                instrucaoSQL.setString(8, p.getDescricao());
+                instrucaoSQL.setInt(9, p.getIdProduto());
+
             }
             //Executar a instrução SQL
             int linhasAfetadas = instrucaoSQL.executeUpdate();
@@ -68,9 +61,9 @@ public class ClienteDAO {
 
 //                ResultSet generatedKeys = instrucaoSQL.getGeneratedKeys(); //Recupero o ID do cliente
 //                if (generatedKeys.next()) {
-//                    p.setId(generatedKeys.getInt(1));
+//                    p.setIdProduto(generatedKeys.getInt(1));
 //                } else {
-//                    throw new SQLException("Falha ao obter o ID do cliente.");
+//                    throw new SQLException("Falha ao obter o ID do produto.");
 //                }
             } else {
                 retorno = false;
@@ -108,7 +101,7 @@ public class ClienteDAO {
             //conexao = GerenciadorConexao.abrirConexao();
             Connection conexao = GerenciadorConexao.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("DELETE FROM clientes WHERE idCliente = ?");
+            instrucaoSQL = conexao.prepareStatement("DELETE FROM produtos WHERE idProduto = ?");
 
             //Adiciono os parâmetros ao meu comando SQL
             instrucaoSQL.setInt(1, pID);
@@ -142,38 +135,38 @@ public class ClienteDAO {
         return retorno;
     }
 
-    public static ArrayList<Clientes> consultarClientes() {
+    public static ArrayList<Produtos> consultarProdutos() {
         ResultSet rs = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
         //Armazeno as informaçoes da tabela (resultSet) em um ArrayList
-        ArrayList<Clientes> listaClientes = new ArrayList<Clientes>();
+        ArrayList<Produtos> listaProdutos = new ArrayList<Produtos>();
 
         try {
 
             conexao = GerenciadorConexao.abrirConexao();
 
             //Passo 3 - Executo a instrução SQL
-            instrucaoSQL = conexao.prepareStatement("SELECT idCliente,nome,cpf FROM clientes;");
+            instrucaoSQL = conexao.prepareStatement("SELECT idProduto,nome,qtdEstoque FROM produtos;");
 
             //Executa a Query (Consulta) - Retorna um objeto da classe ResultSet
             rs = instrucaoSQL.executeQuery();
 
             //Percorrer o resultSet
             while (rs.next()) {
-                Clientes c = new Clientes();
-                c.setId(rs.getInt("idcliente"));
-                c.setNomeCompleto(rs.getString("nome"));
-                c.setCPF(rs.getString("CPF"));
+                Produtos p = new Produtos();
+                p.setIdProduto(rs.getInt("idProduto"));
+                p.setNome(rs.getString("nome"));
+                p.setQtdEstoque(rs.getFloat("qtdEstoque"));
 
                 //Adiciono na listaClientes
-                listaClientes.add(c);
+                listaProdutos.add(p);
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
-            listaClientes = null;
+            listaProdutos = null;
         } finally {
             //Libero os recursos da memória
             try {
@@ -191,14 +184,50 @@ public class ClienteDAO {
             }
         }
 
-        return listaClientes;
+        return listaProdutos;
     }
 
-    public static ArrayList<Clientes> consultarClientes(Clientes cli, String campo) {
+    public static ArrayList<String> consultarTipos() {
         ResultSet rs = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
-        ArrayList<Clientes> listaClientes = new ArrayList<Clientes>();
+        ArrayList<String> listaTipo = new ArrayList<String>();
+
+        try {
+            conexao = GerenciadorConexao.abrirConexao();
+            instrucaoSQL = conexao.prepareStatement("SELECT tipo FROM produtos group by tipo;");
+            rs = instrucaoSQL.executeQuery();
+            while (rs.next()) {
+                listaTipo.add(rs.getString("tipo"));
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            listaTipo = null;
+        } finally {
+            //Libero os recursos da memória
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+
+                conexao.close();
+                //GerenciadorConexao.fecharConexao();
+
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listaTipo;
+    }
+
+    public static ArrayList<Produtos> consultarProdutos(Produtos pro, String campo) {
+        ResultSet rs = null;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        ArrayList<Produtos> listaClientes = new ArrayList<Produtos>();
 
         try {
 
@@ -206,34 +235,41 @@ public class ClienteDAO {
 
             switch (campo) {
                 case "nome":
-                    instrucaoSQL = conexao.prepareStatement("SELECT * FROM clientes WHERE nomeCompleto LIKE ?;");
-                    instrucaoSQL.setString(1, "%" + cli.getNomeCompleto() + '%');
+                    instrucaoSQL = conexao.prepareStatement("SELECT * FROM produtos WHERE nome LIKE ?;");
+                    instrucaoSQL.setString(1, "%" + pro.getNome() + '%');
+                    break;
+                case "cdFiscal":
+                    instrucaoSQL = conexao.prepareStatement("SELECT * FROM produtos WHERE cdFiscal = ?;");
+                    instrucaoSQL.setString(1, pro.getCdFiscal());
+                    break;
+                case "tipo":
+                    instrucaoSQL = conexao.prepareStatement("SELECT * FROM produtos WHERE tipo = ?;");
+                    instrucaoSQL.setString(1, pro.getTipo());
                     break;
                 case "id":
-                    instrucaoSQL = conexao.prepareStatement("SELECT * FROM clientes WHERE idCliente = ?;");
-                    instrucaoSQL.setInt(1, cli.getId());
+                    instrucaoSQL = conexao.prepareStatement("SELECT * FROM produtos WHERE idProduto = ?;");
+                    instrucaoSQL.setInt(1, pro.getIdProduto());
                     break;
-                case "cpf":
-                    instrucaoSQL = conexao.prepareStatement("SELECT * FROM clientes WHERE cpf = ?;");
-                    instrucaoSQL.setString(1, cli.getCPF());
+                case "marca":
+                    instrucaoSQL = conexao.prepareStatement("SELECT * FROM produtos WHERE marca like ?;");
+                    instrucaoSQL.setString(1, "%" + pro.getMarca() + "%");
                     break;
             }
 
             rs = instrucaoSQL.executeQuery();
 
             while (rs.next()) {
-                Clientes c = new Clientes(rs.getInt("idCliente"),
-                        rs.getString("NomeCompleto"),
-                        rs.getString("CPF"),
-                        rs.getDate("Nascimento"),
-                        rs.getString("Endereco"),
-                        rs.getString("Bairro"),
-                        rs.getString("cidade"),
-                        rs.getString("cep"),
-                        rs.getString("Contato"),
-                        rs.getString("email"),
-                        rs.getString("Observacao"),
-                        rs.getString("Sexo"));
+                Produtos c = new Produtos(
+                        rs.getInt("idProduto"),
+                        rs.getString("cdFiscal"),
+                        rs.getString("marca"),
+                        rs.getString("nome"),
+                        rs.getFloat("qtdEstoque"),
+                        rs.getDate("validade"),
+                        rs.getFloat("valor"),
+                        rs.getString("tipo"),
+                        rs.getString("descricao")
+                );
                 listaClientes.add(c);
             }
 

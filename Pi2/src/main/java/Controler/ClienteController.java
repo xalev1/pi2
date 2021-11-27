@@ -33,19 +33,21 @@ public class ClienteController {
         cli = listClientes.get(0);
         return cli;
     }
-    
-    public static Clientes getClientesByCPF(Clientes cliente){
-        ArrayList<Clientes> listClientes = ClienteDAO.consultarClientes(cliente, "cpf");
-        Clientes cli = null;
-        cli = listClientes.get(0);
-        return cli;
+    public static ArrayList<Clientes> getClientesListById(int id){
+        Clientes cliente = new Clientes();
+        cliente.setId(id);
+        ArrayList<Clientes> listClientes = ClienteDAO.consultarClientes(cliente, "id");
+        return listClientes;
     }
     
-    public static Clientes getClientesByNome(Clientes cliente){
+    public static ArrayList<Clientes> getClientesByCPF(Clientes cliente){
+        ArrayList<Clientes> listClientes = ClienteDAO.consultarClientes(cliente, "cpf");
+        return listClientes;
+    }
+    
+    public static ArrayList<Clientes> getClientesByNome(Clientes cliente){
         ArrayList<Clientes> listClientes = ClienteDAO.consultarClientes(cliente, "nome");
-        Clientes cli = null;
-        cli = listClientes.get(0);
-        return cli;
+        return listClientes;
     }
     public static boolean excluir(int id){
         return ClienteDAO.excluir(id);

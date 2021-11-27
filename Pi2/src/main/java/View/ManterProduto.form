@@ -63,11 +63,18 @@
                                       <Component id="lblNome" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblTipo" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtNome" alignment="1" min="-2" pref="480" max="-2" attributes="0"/>
-                                      <Component id="cmbTipo" alignment="0" min="-2" pref="480" max="-2" attributes="0"/>
-                                      <Component id="txtCodigo" alignment="0" min="-2" pref="480" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtNome" alignment="1" min="-2" pref="480" max="-2" attributes="0"/>
+                                              <Component id="txtCodigo" alignment="0" min="-2" pref="480" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txtTipo" min="-2" pref="480" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -80,13 +87,13 @@
                                       <Component id="lblCdFiscal" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtCdFiscal" alignment="0" min="-2" pref="480" max="-2" attributes="0"/>
-                                      <Component id="txtMarca" alignment="0" min="-2" pref="480" max="-2" attributes="0"/>
-                                      <Component id="txtDescricao" alignment="0" min="-2" pref="480" max="-2" attributes="0"/>
-                                      <Component id="txtValor" alignment="0" min="-2" pref="480" max="-2" attributes="0"/>
-                                      <Component id="txtQtdEstoque" alignment="0" min="-2" pref="480" max="-2" attributes="0"/>
-                                      <Component id="txtValidade" alignment="1" min="-2" pref="480" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtCdFiscal" alignment="0" pref="480" max="32767" attributes="0"/>
+                                      <Component id="txtMarca" alignment="0" pref="480" max="32767" attributes="0"/>
+                                      <Component id="txtDescricao" alignment="0" pref="480" max="32767" attributes="0"/>
+                                      <Component id="txtValor" alignment="0" pref="480" max="32767" attributes="0"/>
+                                      <Component id="txtQtdEstoque" alignment="0" pref="480" max="32767" attributes="0"/>
+                                      <Component id="txtValidade" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -118,7 +125,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmbTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -141,11 +148,11 @@
                       <Component id="txtMarca" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblCidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtValidade" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblCidade" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtValidade" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCdFiscal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtCdFiscal" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -163,12 +170,12 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblCdFiscal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="C&#xf3;digo fiscal:"/>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo fiscal*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNome">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome:"/>
+            <Property name="text" type="java.lang.String" value="Nome*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTipo">
@@ -178,7 +185,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblValor">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor:"/>
+            <Property name="text" type="java.lang.String" value="Valor*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCodigo">
@@ -230,16 +237,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtNome">
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbTipo">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtValor">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
@@ -253,17 +250,11 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtMarca">
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtValidade">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-              <Format format="##/##/####" subtype="-1" type="5"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValidadeActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JTextField" name="txtCdFiscal">
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="txtValidade">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtTipo">
         </Component>
       </SubComponents>
     </Container>
