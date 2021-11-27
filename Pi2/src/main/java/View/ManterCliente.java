@@ -5,6 +5,9 @@
  */
 package View;
 
+import Controler.ClienteController;
+import Model.Clientes;
+import br.senac.sp.lab8.DAO.ClienteDAO;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
@@ -25,11 +28,36 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         this.desk = desk;
     }
 
-    ManterCliente(int i) {
+    public ManterCliente(int i) {
         initComponents();
         if (i != 0) {
             this.btnCadastrarCliente.setText("Atualizar");
             this.txtCodigoCliente.setText(String.valueOf(i));
+            ClienteController clienteController = new ClienteController();
+            Clientes clie = clienteController.getClientesById(i);
+
+            txtNomeCompletoCliente.setText(clie.getNomeCompleto());
+            txtCPFCliente.setText(clie.getCPF());
+            txtNascimento.setDate(clie.getNascimento());
+            txtEnderecoCliente.setText(clie.getEndereco());
+            txtBairroCliente.setText(clie.getBairro());
+            txtCepCliente.setText(clie.getCep());
+            txtCidadeCliente.setText(clie.getCidade());
+            txtContatoCliente.setText(clie.getContato());
+            txtEmailCliente.setText(clie.getEmail());
+            txtObservacaoCliente.setText(clie.getObservacao());
+            switch(clie.getSexo()){
+                case "m":
+                    btgSexo.setSelected(this.rdoMasculino.getModel(), isIcon);
+                    break;
+                case "f":
+                    btgSexo.setSelected(this.rdoFeminino.getModel(), isIcon);
+                    break;
+                case "n":
+                    btgSexo.setSelected(this.rdoNaoDeclarar.getModel(), isIcon);
+                    break;
+            }
+             
         }
     }
 
@@ -58,7 +86,6 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         txtCodigoCliente = new javax.swing.JTextField();
         txtNomeCompletoCliente = new javax.swing.JTextField();
         txtCPFCliente = new javax.swing.JFormattedTextField();
-        txtNascimentoCliente = new javax.swing.JFormattedTextField();
         txtEnderecoCliente = new javax.swing.JTextField();
         txtBairroCliente = new javax.swing.JTextField();
         txtCidadeCliente = new javax.swing.JTextField();
@@ -69,9 +96,10 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         txtCepCliente = new javax.swing.JFormattedTextField();
         txtContatoCliente = new javax.swing.JFormattedTextField();
         lblObservacao1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        rdoMasculino = new javax.swing.JRadioButton();
+        rdoFeminino = new javax.swing.JRadioButton();
+        rdoNaoDeclarar = new javax.swing.JRadioButton();
+        txtNascimento = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
 
@@ -107,12 +135,6 @@ public class ManterCliente extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
-        try {
-            txtNascimentoCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         btnCadastrarCliente.setText("Cadastrar");
         btnCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,15 +163,18 @@ public class ManterCliente extends javax.swing.JInternalFrame {
 
         lblObservacao1.setText("Sexo:");
 
-        btgSexo.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Masculino");
+        btgSexo.add(rdoMasculino);
+        rdoMasculino.setSelected(true);
+        rdoMasculino.setText("Masculino");
+        rdoMasculino.setActionCommand("M");
 
-        btgSexo.add(jRadioButton2);
-        jRadioButton2.setText("Feminino");
+        btgSexo.add(rdoFeminino);
+        rdoFeminino.setText("Feminino");
+        rdoFeminino.setActionCommand("F");
 
-        btgSexo.add(jRadioButton3);
-        jRadioButton3.setText("Não declarar");
+        btgSexo.add(rdoNaoDeclarar);
+        rdoNaoDeclarar.setText("Não declarar");
+        rdoNaoDeclarar.setActionCommand("N");
 
         javax.swing.GroupLayout painelCadastroClienteLayout = new javax.swing.GroupLayout(painelCadastroCliente);
         painelCadastroCliente.setLayout(painelCadastroClienteLayout);
@@ -183,24 +208,24 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelCadastroClienteLayout.createSequentialGroup()
+                                        .addComponent(rdoMasculino)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rdoFeminino)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(rdoNaoDeclarar)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroClienteLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtCPFCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                            .addComponent(txtNascimentoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                                             .addComponent(txtEnderecoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                                             .addComponent(txtBairroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                                             .addComponent(txtCidadeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                                             .addComponent(txtEmailCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                                             .addComponent(txtObservacaoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                                             .addComponent(txtCepCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                            .addComponent(txtContatoCliente)))
-                                    .addGroup(painelCadastroClienteLayout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton3)
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                                            .addComponent(txtContatoCliente)
+                                            .addComponent(txtNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroClienteLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelarCadastro)
@@ -224,10 +249,10 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                     .addComponent(lblCPF)
                     .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNascimento)
-                    .addComponent(txtNascimentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEndereco)
                     .addComponent(txtEnderecoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -257,9 +282,9 @@ public class ManterCliente extends javax.swing.JInternalFrame {
                     .addComponent(txtObservacaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
+                    .addComponent(rdoMasculino)
+                    .addComponent(rdoFeminino)
+                    .addComponent(rdoNaoDeclarar)
                     .addComponent(lblObservacao1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(painelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -290,7 +315,30 @@ public class ManterCliente extends javax.swing.JInternalFrame {
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
         // TODO add your handling code here:
-        validar();
+        if (validar()) {
+            try {
+
+                Clientes clie = new Clientes();
+
+                clie.setId(Integer.valueOf(txtCodigoCliente.getText().isBlank() ? "0" : txtCodigoCliente.getText()));
+                clie.setNomeCompleto(txtNomeCompletoCliente.getText());
+                clie.setCPF(txtCPFCliente.getText().replace(".", "").replace("-", ""));
+                clie.setNascimento(new java.sql.Date(txtNascimento.getDate().getTime()));
+                clie.setEndereco(txtEnderecoCliente.getText());
+                clie.setBairro(txtBairroCliente.getText());
+                clie.setCep(txtCepCliente.getText().replace(".", "").replace("-", ""));
+                clie.setCidade(txtCidadeCliente.getText());
+                clie.setContato(txtContatoCliente.getText().replace('(', '-').replace(')', '-').replace(" ", "").replace("-", ""));
+                clie.setEmail(txtEmailCliente.getText());
+                clie.setObservacao(txtObservacaoCliente.getText());
+                clie.setSexo(btgSexo.getSelection().getActionCommand());
+
+                ClienteDAO.salvar(clie);
+
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
@@ -300,7 +348,7 @@ public class ManterCliente extends javax.swing.JInternalFrame {
             txtCodigoCliente.setText("");
             txtNomeCompletoCliente.setText("");
             txtCPFCliente.setText("");
-            txtNascimentoCliente.setText("");
+            txtNascimento.setDate(null);
             txtEnderecoCliente.setText("");
             txtBairroCliente.setText("");
             txtCepCliente.setText("");
@@ -312,7 +360,7 @@ public class ManterCliente extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnCancelarCadastroActionPerformed
 
-    private void validar() {
+    private boolean validar() {
         ArrayList<String> erros = new ArrayList<>();
         if (this.txtNomeCompletoCliente.getText().isBlank()) {
             erros.add("Nome Completo");
@@ -320,7 +368,7 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         if (this.txtCPFCliente.getText().isBlank()) {
             erros.add("CPF");
         }
-        if (this.txtNascimentoCliente.getText().isBlank()) {
+        if (this.txtNascimento.getDate() == null) {
             erros.add("Data de nascimento");
         }
         if (this.txtEnderecoCliente.getText().isBlank()) {
@@ -341,23 +389,21 @@ public class ManterCliente extends javax.swing.JInternalFrame {
         if (this.txtEmailCliente.getText().isBlank()) {
             erros.add("Email");
         }
-        
-        if(!erros.isEmpty()){
-            String errosString="";
+
+        if (!erros.isEmpty()) {
+            String errosString = "";
             for (String erro : erros) {
-                errosString =errosString+ erro+"\n";
+                errosString = errosString + erro + "\n";
             }
             JOptionPane.showMessageDialog(this, "Estes campos devem ser preenchidos:\n" + errosString);
         }
+        return erros.isEmpty();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgSexo;
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnCancelarCadastro;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCep;
@@ -371,6 +417,9 @@ public class ManterCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblObservacao;
     private javax.swing.JLabel lblObservacao1;
     private javax.swing.JPanel painelCadastroCliente;
+    private javax.swing.JRadioButton rdoFeminino;
+    private javax.swing.JRadioButton rdoMasculino;
+    private javax.swing.JRadioButton rdoNaoDeclarar;
     private javax.swing.JTextField txtBairroCliente;
     private javax.swing.JFormattedTextField txtCPFCliente;
     private javax.swing.JFormattedTextField txtCepCliente;
@@ -379,7 +428,7 @@ public class ManterCliente extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField txtContatoCliente;
     private javax.swing.JTextField txtEmailCliente;
     private javax.swing.JTextField txtEnderecoCliente;
-    private javax.swing.JFormattedTextField txtNascimentoCliente;
+    private com.toedter.calendar.JDateChooser txtNascimento;
     private javax.swing.JTextField txtNomeCompletoCliente;
     private javax.swing.JTextField txtObservacaoCliente;
     // End of variables declaration//GEN-END:variables

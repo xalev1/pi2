@@ -89,11 +89,18 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="rdoMasculino" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rdoFeminino" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rdoNaoDeclarar" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="txtCPFCliente" alignment="0" pref="480" max="32767" attributes="0"/>
-                                              <Component id="txtNascimentoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
                                               <Component id="txtEnderecoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
                                               <Component id="txtBairroCliente" alignment="0" pref="480" max="32767" attributes="0"/>
                                               <Component id="txtCidadeCliente" alignment="0" pref="480" max="32767" attributes="0"/>
@@ -101,15 +108,8 @@
                                               <Component id="txtObservacaoCliente" alignment="0" pref="480" max="32767" attributes="0"/>
                                               <Component id="txtCepCliente" alignment="0" pref="480" max="32767" attributes="0"/>
                                               <Component id="txtContatoCliente" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtNascimento" max="32767" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -145,11 +145,11 @@
                       <Component id="txtCPFCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNascimentoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblNascimento" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNascimento" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtEnderecoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -186,9 +186,9 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdoMasculino" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdoFeminino" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdoNaoDeclarar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblObservacao1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -271,13 +271,6 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtNascimentoCliente">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-              <Format format="##/##/####" subtype="-1" type="5"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="txtEnderecoCliente">
         </Component>
         <Component class="javax.swing.JTextField" name="txtBairroCliente">
@@ -323,30 +316,35 @@
             <Property name="text" type="java.lang.String" value="Sexo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+        <Component class="javax.swing.JRadioButton" name="rdoMasculino">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="btgSexo"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Masculino"/>
+            <Property name="actionCommand" type="java.lang.String" value="M"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+        <Component class="javax.swing.JRadioButton" name="rdoFeminino">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="btgSexo"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Feminino"/>
+            <Property name="actionCommand" type="java.lang.String" value="F"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+        <Component class="javax.swing.JRadioButton" name="rdoNaoDeclarar">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="btgSexo"/>
             </Property>
             <Property name="text" type="java.lang.String" value="N&#xe3;o declarar"/>
+            <Property name="actionCommand" type="java.lang.String" value="N"/>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="txtNascimento">
         </Component>
       </SubComponents>
     </Container>

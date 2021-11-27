@@ -5,6 +5,10 @@
  */
 package Model;
 
+import java.sql.Date;
+
+
+
 /**
  *
  * @author paulo
@@ -14,7 +18,7 @@ public class Clientes {
     private int id;
     private String nomeCompleto;
     private String CPF;
-    private String nascimento;
+    private Date nascimento;
     private String endereco;
     private String bairro;
     private String cidade;
@@ -22,9 +26,9 @@ public class Clientes {
     private String contato;
     private String email;
     private String observacao;
-    private String Sexo;
+    private String sexo;
 
-    public Clientes(int id, String nomeCompleto, String CPF, String nascimento, String endereco, String bairro, String cidade, String cep, String contato, String email, String observacao) {
+    public Clientes(int id, String nomeCompleto, String CPF, Date nascimento, String endereco, String bairro, String cidade, String cep, String contato, String email, String observacao,String sexo) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.CPF = CPF;
@@ -36,6 +40,18 @@ public class Clientes {
         this.contato = contato;
         this.email = email;
         this.observacao = observacao;
+        this.sexo = sexo;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String Sexo) {
+        this.sexo = Sexo;
+    }
+
+    public Clientes() {
     }
 
     public int getId() {
@@ -62,11 +78,11 @@ public class Clientes {
         this.CPF = CPF;
     }
 
-    public String getNascimento() {
+    public Date getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(String nascimento) {
+    public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
 

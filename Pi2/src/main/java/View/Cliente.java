@@ -5,8 +5,13 @@
  */
 package View;
 
+import Controler.ClienteController;
+import Model.Clientes;
+import br.senac.sp.lab8.DAO.ClienteDAO;
+import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,9 +23,13 @@ public class Cliente extends javax.swing.JInternalFrame {
      * Creates new form Cliente
      */
     private JDesktopPane desk;
+    private ClienteController clienteController;
     public Cliente(JDesktopPane desk) {
         this.desk = desk;
         initComponents();
+        clienteController = new ClienteController();
+        rdoNomeActionPerformed(null);
+        rdoNome.setSelected(true);
     }
 
     /**
@@ -32,12 +41,13 @@ public class Cliente extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btgFiltro = new javax.swing.ButtonGroup();
         opcaoCliente = new javax.swing.JPanel();
         btnCadastrarCliente = new javax.swing.JButton();
         btnAtualizarCliente = new javax.swing.JButton();
         btnExcluirCliente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaClientes = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         nomeTela = new javax.swing.JLabel();
         informacoesCliente = new javax.swing.JPanel();
         nomeCliente = new javax.swing.JLabel();
@@ -47,6 +57,9 @@ public class Cliente extends javax.swing.JInternalFrame {
         txtNomeCliente = new javax.swing.JTextField();
         txtIDCliente = new javax.swing.JTextField();
         txtCPFCliente = new javax.swing.JFormattedTextField();
+        rdoNome = new javax.swing.JRadioButton();
+        rdoCPF = new javax.swing.JRadioButton();
+        rdoId = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -97,18 +110,23 @@ public class Cliente extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "CPF"
             }
-        ));
-        jScrollPane1.setViewportView(tabelaClientes);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
 
         nomeTela.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         nomeTela.setForeground(new java.awt.Color(1, 106, 6));
@@ -124,6 +142,11 @@ public class Cliente extends javax.swing.JInternalFrame {
         idCliente.setText("ID:");
 
         btnConsultarCliente.setText("Consultar Cliente");
+        btnConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarClienteActionPerformed(evt);
+            }
+        });
 
         txtIDCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +160,27 @@ public class Cliente extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
+        btgFiltro.add(rdoNome);
+        rdoNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoNomeActionPerformed(evt);
+            }
+        });
+
+        btgFiltro.add(rdoCPF);
+        rdoCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoCPFActionPerformed(evt);
+            }
+        });
+
+        btgFiltro.add(rdoId);
+        rdoId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout informacoesClienteLayout = new javax.swing.GroupLayout(informacoesCliente);
         informacoesCliente.setLayout(informacoesClienteLayout);
         informacoesClienteLayout.setHorizontalGroup(
@@ -145,24 +189,22 @@ public class Cliente extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConsultarCliente)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, informacoesClienteLayout.createSequentialGroup()
-                .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(informacoesClienteLayout.createSequentialGroup()
-                        .addComponent(cpfCliente)
-                        .addGap(16, 16, 16)
-                        .addComponent(txtCPFCliente))
-                    .addGroup(informacoesClienteLayout.createSequentialGroup()
-                        .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomeCliente)
-                            .addComponent(idCliente))
-                        .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(informacoesClienteLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNomeCliente))
-                            .addGroup(informacoesClienteLayout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(txtIDCliente)))))
-                .addGap(12, 12, 12))
+            .addGroup(informacoesClienteLayout.createSequentialGroup()
+                .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cpfCliente)
+                    .addComponent(nomeCliente)
+                    .addComponent(idCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNomeCliente)
+                    .addComponent(txtCPFCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                    .addComponent(txtIDCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rdoNome)
+                    .addComponent(rdoCPF)
+                    .addComponent(rdoId))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         informacoesClienteLayout.setVerticalGroup(
             informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,16 +212,19 @@ public class Cliente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeCliente)
-                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdoNome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cpfCliente)
-                    .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdoCPF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(informacoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idCliente)
-                    .addComponent(txtIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                    .addComponent(txtIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdoId))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(btnConsultarCliente)
                 .addContainerGap())
         );
@@ -227,22 +272,96 @@ public class Cliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnAtualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarClienteActionPerformed
-        ManterCliente janelaAtualizacaoCliente = new ManterCliente(1);
+        ManterCliente janelaAtualizacaoCliente = new ManterCliente((int)tblClientes.getModel().getValueAt(tblClientes.getSelectedRow(), 0));
         janelaAtualizacaoCliente.setVisible(true);
         desk.add(janelaAtualizacaoCliente);
         janelaAtualizacaoCliente.toFront();
     }//GEN-LAST:event_btnAtualizarClienteActionPerformed
 
     private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed
-        JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?", "Excluir Cliente",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+        if(JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?", "Excluir Cliente",JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE) == 0){
+            ClienteController.excluir((int)tblClientes.getModel().getValueAt(tblClientes.getSelectedRow(), 0));
+            btnConsultarClienteActionPerformed(null);
+        }
     }//GEN-LAST:event_btnExcluirClienteActionPerformed
 
     private void txtIDClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDClienteActionPerformed
 
+    private void btnConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarClienteActionPerformed
+        //Peço à classe DAO para consultar os clientes
+        Clientes cli = new Clientes();
+        ArrayList<Clientes> listaClientes = null;
+        if(this.txtCPFCliente.isEnabled()){
+            
+            cli.setCPF(txtCPFCliente.getText().replace(".", "").replace("-", ""));
+            listaClientes = ClienteDAO.consultarClientes(cli,"cpf");
+        }else if(this.txtIDCliente.isEnabled()){
+            cli.setId(Integer.valueOf(this.txtIDCliente.getText()));
+            listaClientes = ClienteDAO.consultarClientes(cli,"id");
+        }else if(this.txtNomeCliente.isEnabled()){
+            cli.setNomeCompleto(this.txtNomeCliente.getText());
+            listaClientes = ClienteDAO.consultarClientes(cli,"nome");
+        }
+        
+       
+        DefaultTableModel tmClientes = new DefaultTableModel();
+        tmClientes.addColumn("ID");
+        tmClientes.addColumn("Nome");
+        tmClientes.addColumn("CPF");
+        tblClientes.setModel(tmClientes);
+        //Removo a coluna ID da View (JTable) mas mantenho na model para armazenar o ID
+        tblClientes.removeColumn(tblClientes.getColumnModel().getColumn(0));
+        
+        //Limpo a tabela, excluindo todas as linhas para depois mostrar os dados novamente
+        tmClientes.setRowCount(0);
+        
+        //Para cada cliente resgatado do banco de dados, atualizo a tabela
+        for (Clientes c : listaClientes) {
+            tmClientes.addRow(new Object[]{c.getId(),c.getNomeCompleto(),c.getCPF()});
+        }
+        //Defino o tamanho para cada coluna
+        //tblClientes.getColumnModel().getColumn(0).setPreferredWidth(50); //ID
+        tblClientes.getColumnModel().getColumn(0).setPreferredWidth(300);
+        tblClientes.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblClientes.setCellSelectionEnabled(false);
+        tblClientes.setDefaultEditor(Object.class,null);
+                
+        
+        clienteController.getClientes();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarClienteActionPerformed
+
+    private void rdoIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoIdActionPerformed
+        this.txtIDCliente.setEnabled(true);
+        this.txtCPFCliente.setEnabled(false);
+        this.txtNomeCliente.setEnabled(false);
+        limpar();
+    }//GEN-LAST:event_rdoIdActionPerformed
+
+    private void rdoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNomeActionPerformed
+        this.txtIDCliente.setEnabled(false);
+        this.txtNomeCliente.setEnabled(true);
+        this.txtCPFCliente.setEnabled(false);
+        limpar();
+    }//GEN-LAST:event_rdoNomeActionPerformed
+
+    private void rdoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCPFActionPerformed
+        this.txtIDCliente.setEnabled(false);
+        this.txtNomeCliente.setEnabled(false);
+        this.txtCPFCliente.setEnabled(true);
+        limpar();
+    }//GEN-LAST:event_rdoCPFActionPerformed
+
+    private void limpar(){
+        this.txtIDCliente.setText("");
+        this.txtCPFCliente.setText("");
+        this.txtNomeCliente.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btgFiltro;
     private javax.swing.JButton btnAtualizarCliente;
     private javax.swing.JButton btnCadastrarCliente;
     private javax.swing.JButton btnConsultarCliente;
@@ -254,7 +373,10 @@ public class Cliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel nomeCliente;
     private javax.swing.JLabel nomeTela;
     private javax.swing.JPanel opcaoCliente;
-    private javax.swing.JTable tabelaClientes;
+    private javax.swing.JRadioButton rdoCPF;
+    private javax.swing.JRadioButton rdoId;
+    private javax.swing.JRadioButton rdoNome;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JFormattedTextField txtCPFCliente;
     private javax.swing.JTextField txtIDCliente;
     private javax.swing.JTextField txtNomeCliente;

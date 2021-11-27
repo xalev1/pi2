@@ -10,10 +10,10 @@ public class GerenciadorConexao {
     public static String DRIVER = "com.mysql.cj.jdbc.Driver";  //A partir da versao 8.0, mudou para com.mysql.cj.jdbc.Driver (Connector/J)                   
     
     public static String SERVER = "localhost";
-    public static String DATABASE = "lojainformatica";              //nome do seu banco de dados
+    public static String DATABASE = "pi2";              //nome do seu banco de dados
     
     public static String LOGIN = "root";                     //nome de um usuário de seu BD      
-    public static String SENHA = "";                         //sua senha de acesso
+    public static String SENHA = "121296Pk#9";                         //sua senha de acesso
     
     public static String URL = "";
     
