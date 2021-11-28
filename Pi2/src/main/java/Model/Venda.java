@@ -5,8 +5,8 @@
  */
 package Model;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -21,12 +21,25 @@ public class Venda {
     private float total;
     private int quantidadeItens;
 
-    public Venda(Clientes clienteVenda, ArrayList<ItemVenda> produtos, Date data, float total, int quantidadeItens) {
+    public Venda(int idVenda, Clientes clienteVenda, ArrayList<ItemVenda> produtos, Date data, float total, int quantidadeItens) {
+        this.idVenda = idVenda;
         this.clienteVenda = clienteVenda;
         this.produtos = produtos;
         this.data = data;
         this.total = total;
         this.quantidadeItens = quantidadeItens;
+    }
+
+    public Venda() {
+        this.produtos = new ArrayList<ItemVenda>();
+    }
+
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
     }
 
     public Clientes getClienteVenda() {

@@ -42,12 +42,14 @@ create table pi2.vendas(
 );
 
 create table pi2.prod_vendas(
+    idProdVenda int primary key auto_increment,
     idVenda int,
     idProduto int,
     quantidade float,
-    valor float,
-    valor_total float,
-    FOREIGN KEY (idProduto) REFERENCES pi2.produtos(idProduto)
+    preco float,
+    total float,
+    FOREIGN KEY (idProduto) REFERENCES pi2.produtos(idProduto),
+    FOREIGN KEY (idVenda) REFERENCES pi2.vendas(idVenda)
 );
 
 

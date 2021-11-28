@@ -28,6 +28,10 @@ public class Clientes {
     private String observacao;
     private String sexo;
 
+    public Clientes(int id) {
+        this.id = id;
+    }
+
     public Clientes(int id, String nomeCompleto, String CPF, Date nascimento, String endereco, String bairro, String cidade, String cep, String contato, String email, String observacao,String sexo) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;

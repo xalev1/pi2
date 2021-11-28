@@ -347,9 +347,9 @@ public class ManterCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
-        int teste = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar esse cadastro?");
+        int ret = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cancelar esse cadastro?");
 
-        if (teste == 0) {
+        if (ret == 0) {
             txtCodigoCliente.setText("");
             txtNomeCompletoCliente.setText("");
             txtCPFCliente.setText("");

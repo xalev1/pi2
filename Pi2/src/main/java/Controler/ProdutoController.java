@@ -29,9 +29,11 @@ public class ProdutoController {
         Produtos produto = new Produtos();
         produto.setIdProduto(id);
         ArrayList<Produtos> listProdutos = ProdutoDAO.consultarProdutos(produto, "id");
-        Produtos prod = null;
-        prod = listProdutos.get(0);
-        return prod;
+        if(listProdutos.size() == 0){
+           return null; 
+        }else{
+            return listProdutos.get(0);
+        }
     }
     
     public static ArrayList<Produtos> getProdutosByTipo(Produtos produto){
