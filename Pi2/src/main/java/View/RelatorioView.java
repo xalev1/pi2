@@ -10,7 +10,9 @@ import Controler.VendaController;
 import Model.Clientes;
 import Model.Venda;
 import Model.VendaFiltros;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JDesktopPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +30,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     public RelatorioView(JDesktopPane desk) {
         initComponents();
         this.desk = desk;
+        tblRelatorio.setDefaultEditor(Object.class, null);
     }
 
     /**
@@ -40,8 +43,6 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        cmbMesVenda = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnPesquisar = new javax.swing.JToggleButton();
@@ -57,24 +58,14 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtQtdVendas = new javax.swing.JTextField();
         txtVlTotal = new javax.swing.JFormattedTextField();
         txtVlMedio = new javax.swing.JFormattedTextField();
-        btnExportar = new javax.swing.JToggleButton();
         btnPedido = new javax.swing.JToggleButton();
 
         setClosable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-
-        jLabel4.setText("Mês da venda");
-
-        cmbMesVenda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JAN/2020", "FEV/2020", "ABR/2020", "MAI/2020", " " }));
-        cmbMesVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbMesVendaActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("CPF Cliente");
 
@@ -108,26 +99,22 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbMesVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCPF))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDtInic, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCPF)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
                 .addComponent(btnPesquisar)
                 .addGap(19, 19, 19))
         );
@@ -136,8 +123,6 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cmbMesVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(btnPesquisar)
@@ -170,9 +155,9 @@ public class RelatorioView extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Valor médio");
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("100");
-        jTextField1.setEnabled(false);
+        txtQtdVendas.setEditable(false);
+        txtQtdVendas.setText("100");
+        txtQtdVendas.setEnabled(false);
 
         txtVlTotal.setEditable(false);
         txtVlTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$#,##0.###"))));
@@ -183,8 +168,6 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         txtVlMedio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$#,##0.###"))));
         txtVlMedio.setText("R$0,00");
         txtVlMedio.setEnabled(false);
-
-        btnExportar.setText("Exportar");
 
         btnPedido.setText("Vizualizar Pedido");
         btnPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +187,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtQtdVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -213,10 +196,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtVlMedio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
-                        .addComponent(btnPedido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExportar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPedido)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -226,10 +207,9 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExportar)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQtdVendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtVlTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtVlMedio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,37 +241,43 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbMesVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMesVendaActionPerformed
-
-    }//GEN-LAST:event_cmbMesVendaActionPerformed
-
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblRelatorio.getModel();
+        int rows = model.getRowCount();
+
+        for (int i = 0; i < rows; i++) {
+            model.removeRow(0);
+        }
+
         VendaFiltros filt = new VendaFiltros();
         filt.setCpf(txtCPF.getText().replace(".", "").replace("-", ""));
         if (txtDtFim.getDate() != null) {
             filt.setDtFim(new java.sql.Date(txtDtFim.getDate().getTime()));
-
         }
         if (txtDtInic.getDate() != null) {
             filt.setDtInic(new java.sql.Date(txtDtInic.getDate().getTime()));
         }
         if (!txtId.getText().isBlank()) {
-
             filt.setIdVenda(Integer.valueOf(txtId.getText()));
         }
 
         ArrayList<Venda> vendaList = VendaController.getVendas(filt);
-        DefaultTableModel model = (DefaultTableModel) tblRelatorio.getModel();
-
+        float total = 0f;
         for (Venda venda : vendaList) {
-//            idVenda, cliente,Data Venda, Quanitdade Itens, Valor Total
             Clientes cli = ClienteController.getClientesById(venda.getClienteVenda());
             model.addRow(new Object[]{venda.getIdVenda(), cli.getCPF(), venda.getData().toString(), venda.getQuantidadeItens(), venda.getTotal()});
+            total += venda.getTotal();
         }
+
+        Locale locale = new Locale("pt", "BR");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        txtVlMedio.setText(currencyFormatter.format(total / Float.valueOf(vendaList.size())));
+        txtVlTotal.setText(currencyFormatter.format(total));
+        txtQtdVendas.setText(String.valueOf(vendaList.size()));
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
-        VendaView janelaVenda = new VendaView(desk,(int) tblRelatorio.getModel().getValueAt(tblRelatorio.getSelectedRow(), 0));
+        VendaView janelaVenda = new VendaView(desk, (int) tblRelatorio.getModel().getValueAt(tblRelatorio.getSelectedRow(), 0));
         janelaVenda.setVisible(true);
         desk.add(janelaVenda);
         janelaVenda.toFront();
@@ -299,14 +285,11 @@ public class RelatorioView extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnExportar;
     private javax.swing.JToggleButton btnPedido;
     private javax.swing.JToggleButton btnPesquisar;
-    private javax.swing.JComboBox<String> cmbMesVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -314,12 +297,12 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblRelatorio;
     private javax.swing.JFormattedTextField txtCPF;
     private com.toedter.calendar.JDateChooser txtDtFim;
     private com.toedter.calendar.JDateChooser txtDtInic;
     private javax.swing.JFormattedTextField txtId;
+    private javax.swing.JTextField txtQtdVendas;
     private javax.swing.JFormattedTextField txtVlMedio;
     private javax.swing.JFormattedTextField txtVlTotal;
     // End of variables declaration//GEN-END:variables

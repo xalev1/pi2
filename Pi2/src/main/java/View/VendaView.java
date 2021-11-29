@@ -34,33 +34,38 @@ public class VendaView extends javax.swing.JInternalFrame {
     private Produtos prod;
     private Clientes cli;
     private Venda vend;
-
+    
     public VendaView(JDesktopPane desk) {
         initComponents();
         this.desk = desk;
         cli = new Clientes();
         vend = new Venda();
         txtData.setDate(new Date(System.currentTimeMillis()));
+        tblCarrinho.setDefaultEditor(Object.class, null);
     }
-
+    
     public VendaView(JDesktopPane desk, int idVenda) {
         initComponents();
         this.desk = desk;
-
+        
         vend = VendaController.getVendas(idVenda);
         cli = ClienteController.getClientesById(vend.getClienteVenda());
         txtData.setDate(new Date(System.currentTimeMillis()));
-
+        
         this.txtData.setEnabled(false);
         this.txtCPF.setEnabled(false);
         this.txtCodigoProd.setEnabled(false);
         this.txtQtd.setEnabled(false);
+        
         this.btnFinalizarCompra.setEnabled(false);
         this.btnPesquisarCli.setEnabled(false);
         this.btnRemover.setEnabled(false);
+        this.btnAdd.setEnabled(false);
+        this.btnPesquisarProd.setEnabled(false);
         setForm();
+        tblCarrinho.setDefaultEditor(Object.class, null);
     }
-
+    
     public void setForm() {
         this.txtId.setText(String.valueOf(vend.getIdVenda()));
         this.txtData.setDate(vend.getData());
@@ -71,12 +76,12 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtCPF.setText(cli.getCPF());
         txtIdCli.setText(String.valueOf(cli.getId()));
         txtNomeCli.setText(cli.getNomeCompleto());
-
+        
         DefaultTableModel model = (DefaultTableModel) tblCarrinho.getModel();
         for (ItemVenda i : vend.getProdutos()) {
             Produtos prod = ProdutoController.getProdutosById(i.getIdProduto());
             model.addRow(new Object[]{i.getIdProduto(), prod.getNome(), i.getQuantidade(), i.getPreco(), i.getTotal()});
-
+            
         }
     }
 
@@ -98,7 +103,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         txtNomeCli = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        txtPesquisarProd = new javax.swing.JButton();
+        btnPesquisarProd = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtQtd = new javax.swing.JTextField();
@@ -202,10 +207,10 @@ public class VendaView extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        txtPesquisarProd.setText("Pesquisar");
-        txtPesquisarProd.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisarProd.setText("Pesquisar");
+        btnPesquisarProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisarProdActionPerformed(evt);
+                btnPesquisarProdActionPerformed(evt);
             }
         });
 
@@ -213,7 +218,7 @@ public class VendaView extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Quantidade");
 
-        txtQtd.setText("0");
+        txtQtd.setText("1");
         txtQtd.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtQtdFocusLost(evt);
@@ -288,7 +293,7 @@ public class VendaView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPesquisarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPesquisarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -296,7 +301,7 @@ public class VendaView extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesquisarProd)
+                    .addComponent(btnPesquisarProd)
                     .addComponent(jLabel3)
                     .addComponent(txtNomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
@@ -482,19 +487,19 @@ public class VendaView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeProdActionPerformed
 
-    private void txtPesquisarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarProdActionPerformed
+    private void btnPesquisarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarProdActionPerformed
         Produtos pro = ProdutoController.getProdutosById(Integer.valueOf(txtCodigoProd.getText()));
         if (pro == null) {
             JOptionPane.showMessageDialog(this, "Produto não foi encontrado, verifique se o Id está correto");
         } else {
             this.txtNomeProd.setText(pro.getNome());
-
+            
             Locale locale = new Locale("pt", "BR");
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
             this.txtValorProd.setText(currencyFormatter.format(pro.getValor()));
             prod = pro;
         }
-    }//GEN-LAST:event_txtPesquisarProdActionPerformed
+    }//GEN-LAST:event_btnPesquisarProdActionPerformed
 
     private void btnPesquisarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCliActionPerformed
         ArrayList<Clientes> clientesList;
@@ -519,6 +524,11 @@ public class VendaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtQtdFocusLost
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        if (prod == null) {
+            JOptionPane.showMessageDialog(this, "Selecione um produto");
+            return;
+        }
+        
         DefaultTableModel model = (DefaultTableModel) tblCarrinho.getModel();
         model.addRow(new Object[]{txtCodigoProd.getText(), txtNomeProd.getText(), txtQtd.getText(), txtValorProd.getText(), txtTotalProd.getText()});
         ItemVenda item = new ItemVenda();
@@ -530,7 +540,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         vend.getProdutos().add(item);
         vend.adicionaItem();
         txtQtTotal.setText(String.valueOf(vend.getQuantidadeItens()));
-
+        
         Locale locale = new Locale("pt", "BR");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         txtValorTotal.setText(currencyFormatter.format(vend.totaliza()));
@@ -551,6 +561,12 @@ public class VendaView extends javax.swing.JInternalFrame {
 
     private void btnFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarCompraActionPerformed
         vend.setData(new java.sql.Date(txtData.getDate().getTime()));
+        
+        float total = 0f;
+        for (ItemVenda i : vend.getProdutos()) {
+            total += i.getTotal();
+        }
+        vend.setTotal(total);
         if (VendaController.salvar(vend)) {
             JOptionPane.showMessageDialog(this, "Salvo com sucesso");
             this.setVisible(false);
@@ -566,6 +582,7 @@ public class VendaView extends javax.swing.JInternalFrame {
     private javax.swing.JToggleButton btnCancelar;
     private javax.swing.JToggleButton btnFinalizarCompra;
     private javax.swing.JButton btnPesquisarCli;
+    private javax.swing.JButton btnPesquisarProd;
     private javax.swing.JToggleButton btnRemover;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -592,7 +609,6 @@ public class VendaView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtIdCli;
     private javax.swing.JTextField txtNomeCli;
     private javax.swing.JTextField txtNomeProd;
-    private javax.swing.JButton txtPesquisarProd;
     private javax.swing.JTextField txtQtTotal;
     private javax.swing.JTextField txtQtd;
     private javax.swing.JFormattedTextField txtTotalProd;

@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -324,7 +325,9 @@ public class VendaDAO {
                 where += "and cli.cpf = " + vend.getCpf();
             }
             if (vend.getDtFim() != null && vend.getDtInic() != null) {
-                where += "and vend.data_venda between " + String.valueOf(vend.getDtInic().getTime()) + " AND " + String.valueOf(vend.getDtFim().getTime());
+
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                where += "and vend.data_venda between '" + formato.format(vend.getDtInic()) + "' AND '" + formato.format(vend.getDtFim())+ "'";
             }
 
             if (vend.getIdVenda() != 0) {
@@ -332,7 +335,7 @@ public class VendaDAO {
             }
 
             if (!where.isBlank()) {
-                select += where.substring(4);
+                select = select + " where " + where.substring(4);
             }
             instrucaoSQL = conexao.prepareStatement(select);
 

@@ -290,7 +290,7 @@ public class Produto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtMarcaActionPerformed
 
     private void btnConsultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarProdutoActionPerformed
-//Peço à classe DAO para consultar os clientes
+        //Peço à classe DAO para consultar os clientes
         Produtos prod = new Produtos();
         ArrayList<Produtos> listaProdutos = null;
         if (this.txtNome.isEnabled()) {
