@@ -8,6 +8,8 @@ package View;
 import Controler.UsuarioController;
 import Model.Usuario;
 import Utils.UsuarioLogin;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,10 +28,19 @@ public class MenuInicial extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         LoginModal login = new LoginModal(this, true);
 
-        login.setTitle("Message");
+        login.setTitle("Login");
+        
+        
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int x = (screenSize.width - login.getWidth()) / 2;
+        int y = (screenSize.height - login.getHeight()) / 2;
+        
+        
+        login.setLocation(x,y);
         Usuario retorno = login.showDialog();
-        if (retorno == null) {
-            this.dispose();
+        if (retorno == null || retorno.getLoginUsuario().isBlank()) {
+            System.exit(0);
         } else {
             UsuarioLogin.getInstance(UsuarioController.consultarUsuarioByLogin(retorno.getLoginUsuario()));
             this.setTitle(this.getTitle() + " - " + retorno.getLoginUsuario());
