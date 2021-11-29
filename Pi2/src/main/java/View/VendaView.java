@@ -12,6 +12,7 @@ import Model.Clientes;
 import Model.ItemVenda;
 import Model.Produtos;
 import Model.Venda;
+import java.sql.Date;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -37,8 +38,46 @@ public class VendaView extends javax.swing.JInternalFrame {
     public VendaView(JDesktopPane desk) {
         initComponents();
         this.desk = desk;
-        cli =  new Clientes();
+        cli = new Clientes();
         vend = new Venda();
+        txtData.setDate(new Date(System.currentTimeMillis()));
+    }
+
+    public VendaView(JDesktopPane desk, int idVenda) {
+        initComponents();
+        this.desk = desk;
+
+        vend = VendaController.getVendas(idVenda);
+        cli = ClienteController.getClientesById(vend.getClienteVenda());
+        txtData.setDate(new Date(System.currentTimeMillis()));
+
+        this.txtData.setEnabled(false);
+        this.txtCPF.setEnabled(false);
+        this.txtCodigoProd.setEnabled(false);
+        this.txtQtd.setEnabled(false);
+        this.btnFinalizarCompra.setEnabled(false);
+        this.btnPesquisarCli.setEnabled(false);
+        this.btnRemover.setEnabled(false);
+        setForm();
+    }
+
+    public void setForm() {
+        this.txtId.setText(String.valueOf(vend.getIdVenda()));
+        this.txtData.setDate(vend.getData());
+        this.txtQtTotal.setText(String.valueOf(vend.getQuantidadeItens()));
+        Locale locale = new Locale("pt", "BR");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        txtValorTotal.setText(currencyFormatter.format(vend.totaliza()));
+        txtCPF.setText(cli.getCPF());
+        txtIdCli.setText(String.valueOf(cli.getId()));
+        txtNomeCli.setText(cli.getNomeCompleto());
+
+        DefaultTableModel model = (DefaultTableModel) tblCarrinho.getModel();
+        for (ItemVenda i : vend.getProdutos()) {
+            Produtos prod = ProdutoController.getProdutosById(i.getIdProduto());
+            model.addRow(new Object[]{i.getIdProduto(), prod.getNome(), i.getQuantidade(), i.getPreco(), i.getTotal()});
+
+        }
     }
 
     /**
@@ -59,18 +98,18 @@ public class VendaView extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         txtNomeCli = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        txtCodigoProd = new javax.swing.JTextField();
         txtPesquisarProd = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtQtd = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtNomeProd = new javax.swing.JTextField();
-        txtAdd = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtValorProd = new javax.swing.JFormattedTextField();
         txtTotalProd = new javax.swing.JFormattedTextField();
+        txtCodigoProd = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCarrinho = new javax.swing.JTable();
@@ -90,15 +129,9 @@ public class VendaView extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-        jPanel1.setToolTipText("");
 
         txtIdCli.setEditable(false);
         txtIdCli.setEnabled(false);
-        txtIdCli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdCliActionPerformed(evt);
-            }
-        });
 
         btnPesquisarCli.setText("Pesquisar");
         btnPesquisarCli.addActionListener(new java.awt.event.ActionListener() {
@@ -121,11 +154,6 @@ public class VendaView extends javax.swing.JInternalFrame {
 
         txtNomeCli.setEditable(false);
         txtNomeCli.setEnabled(false);
-        txtNomeCli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeCliActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -173,14 +201,6 @@ public class VendaView extends javax.swing.JInternalFrame {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-        jPanel2.setToolTipText("");
-
-        txtCodigoProd.setText("Código");
-        txtCodigoProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoProdActionPerformed(evt);
-            }
-        });
 
         txtPesquisarProd.setText("Pesquisar");
         txtPesquisarProd.addActionListener(new java.awt.event.ActionListener() {
@@ -215,10 +235,10 @@ public class VendaView extends javax.swing.JInternalFrame {
             }
         });
 
-        txtAdd.setText("Adicionar");
-        txtAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Adicionar");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAddActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -234,6 +254,8 @@ public class VendaView extends javax.swing.JInternalFrame {
         txtTotalProd.setText("R$0,00");
         txtTotalProd.setEnabled(false);
 
+        txtCodigoProd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -241,29 +263,31 @@ public class VendaView extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(33, 33, 33)
-                        .addComponent(txtCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel5)
-                        .addGap(39, 39, 39)
-                        .addComponent(txtNomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtValorProd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtValorProd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigoProd))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTotalProd, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTotalProd, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel5)
+                        .addGap(39, 39, 39)
+                        .addComponent(txtNomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtPesquisarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -272,11 +296,11 @@ public class VendaView extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPesquisarProd)
                     .addComponent(jLabel3)
                     .addComponent(txtNomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(txtCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -285,7 +309,7 @@ public class VendaView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtValorProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotalProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAdd))
+                    .addComponent(btnAdd))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -327,16 +351,10 @@ public class VendaView extends javax.swing.JInternalFrame {
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Venda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-        jPanel4.setToolTipText("");
 
         txtId.setEditable(false);
-        txtId.setText("000000000");
+        txtId.setToolTipText("");
         txtId.setEnabled(false);
-        txtId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
-            }
-        });
 
         jLabel8.setText("ID");
 
@@ -353,11 +371,6 @@ public class VendaView extends javax.swing.JInternalFrame {
 
         txtQtTotal.setEditable(false);
         txtQtTotal.setEnabled(false);
-        txtQtTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQtTotalActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -371,7 +384,7 @@ public class VendaView extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -455,19 +468,11 @@ public class VendaView extends javax.swing.JInternalFrame {
                     .addComponent(btnFinalizarCompra)
                     .addComponent(btnCancelar)
                     .addComponent(btnRemover))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtIdCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdCliActionPerformed
-
-    private void txtCodigoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoProdActionPerformed
 
     private void txtQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQtdActionPerformed
         // TODO add your handling code here:
@@ -476,14 +481,6 @@ public class VendaView extends javax.swing.JInternalFrame {
     private void txtNomeProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeProdActionPerformed
-
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
-
-    private void txtQtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQtTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtQtTotalActionPerformed
 
     private void txtPesquisarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarProdActionPerformed
         Produtos pro = ProdutoController.getProdutosById(Integer.valueOf(txtCodigoProd.getText()));
@@ -509,13 +506,9 @@ public class VendaView extends javax.swing.JInternalFrame {
             this.txtIdCli.setText(String.valueOf(clientesList.get(0).getId()));
             this.txtNomeCli.setText(clientesList.get(0).getNomeCompleto());
             cli = clientesList.get(0);
-            vend.setClienteVenda(cli);
+            vend.setClienteVenda(cli.getId());
         }
     }//GEN-LAST:event_btnPesquisarCliActionPerformed
-
-    private void txtNomeCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCliActionPerformed
 
     private void txtQtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQtdFocusLost
         Locale locale = new Locale("pt", "BR");
@@ -525,7 +518,7 @@ public class VendaView extends javax.swing.JInternalFrame {
         this.txtTotalProd.setText(currencyFormatter.format(valorTotal));
     }//GEN-LAST:event_txtQtdFocusLost
 
-    private void txtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblCarrinho.getModel();
         model.addRow(new Object[]{txtCodigoProd.getText(), txtNomeProd.getText(), txtQtd.getText(), txtValorProd.getText(), txtTotalProd.getText()});
         ItemVenda item = new ItemVenda();
@@ -533,9 +526,15 @@ public class VendaView extends javax.swing.JInternalFrame {
         item.setIdVenda(vend.getIdVenda());
         item.setPreco(prod.getValor());
         item.setQuantidade(Float.valueOf(txtQtd.getText()));
-        item.setTotal(prod.getValor() *Float.valueOf(txtQtd.getText()));
+        item.setTotal(prod.getValor() * Float.valueOf(txtQtd.getText()));
         vend.getProdutos().add(item);
-    }//GEN-LAST:event_txtAddActionPerformed
+        vend.adicionaItem();
+        txtQtTotal.setText(String.valueOf(vend.getQuantidadeItens()));
+
+        Locale locale = new Locale("pt", "BR");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        txtValorTotal.setText(currencyFormatter.format(vend.totaliza()));
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.hide();
@@ -546,14 +545,24 @@ public class VendaView extends javax.swing.JInternalFrame {
         DefaultTableModel model = (DefaultTableModel) tblCarrinho.getModel();
         model.removeRow(this.tblCarrinho.getSelectedRow());
         vend.getProdutos().remove(this.tblCarrinho.getSelectedRow());
+        vend.removerItem();
+        txtQtTotal.setText(String.valueOf(vend.getQuantidadeItens()));
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarCompraActionPerformed
-        VendaController.salvar(vend);
+        vend.setData(new java.sql.Date(txtData.getDate().getTime()));
+        if (VendaController.salvar(vend)) {
+            JOptionPane.showMessageDialog(this, "Salvo com sucesso");
+            this.setVisible(false);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar, tente novamente mais tarde");
+        }
     }//GEN-LAST:event_btnFinalizarCompraActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JToggleButton btnCancelar;
     private javax.swing.JToggleButton btnFinalizarCompra;
     private javax.swing.JButton btnPesquisarCli;
@@ -576,9 +585,8 @@ public class VendaView extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCarrinho;
-    private javax.swing.JButton txtAdd;
     private javax.swing.JFormattedTextField txtCPF;
-    private javax.swing.JTextField txtCodigoProd;
+    private javax.swing.JFormattedTextField txtCodigoProd;
     private com.toedter.calendar.JDateChooser txtData;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtIdCli;

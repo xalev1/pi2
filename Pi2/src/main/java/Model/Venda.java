@@ -14,14 +14,14 @@ import java.util.ArrayList;
  */
 public class Venda {
     private int idVenda;
-    private Clientes clienteVenda;
+    private int clienteVenda;
     //trocar por produto venda
     private ArrayList<ItemVenda> produtos;
     private Date data;
     private float total;
     private int quantidadeItens;
 
-    public Venda(int idVenda, Clientes clienteVenda, ArrayList<ItemVenda> produtos, Date data, float total, int quantidadeItens) {
+    public Venda(int idVenda, int clienteVenda, ArrayList<ItemVenda> produtos, Date data, float total, int quantidadeItens) {
         this.idVenda = idVenda;
         this.clienteVenda = clienteVenda;
         this.produtos = produtos;
@@ -42,11 +42,11 @@ public class Venda {
         this.idVenda = idVenda;
     }
 
-    public Clientes getClienteVenda() {
+    public int getClienteVenda() {
         return clienteVenda;
     }
 
-    public void setClienteVenda(Clientes clienteVenda) {
+    public void setClienteVenda(int clienteVenda) {
         this.clienteVenda = clienteVenda;
     }
 
@@ -82,6 +82,21 @@ public class Venda {
         this.quantidadeItens = quantidadeItens;
     }
     
+    public void adicionaItem(){
+        this.quantidadeItens++;
+    }
+    
+    public void removerItem(){
+        this.quantidadeItens--;
+    }
+    
+    public float totaliza(){
+        float total=0;
+        for (ItemVenda produto : produtos) {
+            total+= produto.getTotal();
+        }
+        return total;
+    }
     
 
 }

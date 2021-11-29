@@ -81,8 +81,7 @@ public class ProdutoDAO {
                 }
 
 //                GerenciadorConexao.fecharConexao();
-                conexao.close();
-
+                GerenciadorConexao.fecharConexao();
             } catch (SQLException ex) {
             }
         }
@@ -177,8 +176,7 @@ public class ProdutoDAO {
                     instrucaoSQL.close();
                 }
 
-                conexao.close();
-                //GerenciadorConexao.fecharConexao();
+GerenciadorConexao.fecharConexao();                //GerenciadorConexao.fecharConexao();
 
             } catch (SQLException ex) {
             }
@@ -213,8 +211,7 @@ public class ProdutoDAO {
                     instrucaoSQL.close();
                 }
 
-                conexao.close();
-                //GerenciadorConexao.fecharConexao();
+GerenciadorConexao.fecharConexao();                //GerenciadorConexao.fecharConexao();
 
             } catch (SQLException ex) {
             }

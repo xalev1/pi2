@@ -88,7 +88,7 @@ public class ClienteDAO {
                 }
 
 //                GerenciadorConexao.fecharConexao();
-                conexao.close();
+                GerenciadorConexao.fecharConexao();
 
             } catch (SQLException ex) {
             }
@@ -184,7 +184,7 @@ public class ClienteDAO {
                     instrucaoSQL.close();
                 }
 
-                conexao.close();
+                GerenciadorConexao.fecharConexao();
                 //GerenciadorConexao.fecharConexao();
 
             } catch (SQLException ex) {
