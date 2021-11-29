@@ -30,6 +30,12 @@ create table pi2.produtos(
     descricao varchar(250)
 );
 
+create table pi2.usuario(
+    idUsuario int PRIMARY KEY AUTO_INCREMENT,
+    loginUsuario varchar(250),
+    senha varchar(250),
+    desabilitado boolean
+);
 
 
 create table pi2.vendas(
@@ -38,7 +44,9 @@ create table pi2.vendas(
     data_venda date,
     total float,
     quantidadeItens int,
-	FOREIGN KEY (idCliente) REFERENCES pi2.clientes(idCliente)
+    idUsuario int,
+	FOREIGN KEY (idCliente) REFERENCES pi2.clientes(idCliente),
+	FOREIGN KEY (idUsuario) REFERENCES pi2.usuario(idUsuario)
 );
 
 create table pi2.prod_vendas(
@@ -53,5 +61,7 @@ create table pi2.prod_vendas(
 );
 
 
+
 INSERT INTO `pi2`.`clientes` (`nomeCompleto`, `CPF`, `nascimento`, `endereco`, `cidade`, `cep`, `contato`, `email`, `observacao`, `sexo`,`bairro`) VALUES ('Paulo Belfi', '44700488875', '1996-12-12', 'Casa', 'SP', '04774030', 'Contato', 'email@paulo.com', 'Sim', 'M','bairro');
 INSERT INTO `pi2`.`produtos` (`cdFiscal`, `marca`, `nome`, `tipo`, `qtdEstoque`, `validade`, `valor`,`descricao`) VALUES ('1000', 'Omo', 'Sabão em po', 'Sabão', '1000', '1996-12-12', '1999','description');
+INSERT INTO `pi2`.`usuario` (`loginUsuario`, `senha`, `desabilitado`) VALUES ('paulo', '121296', '0');

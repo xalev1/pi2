@@ -12,8 +12,8 @@ public class GerenciadorConexao {
     public static String SERVER = "localhost";
     public static String DATABASE = "pi2";              //nome do seu banco de dados
     
-    public static String LOGIN = "root";                     //nome de um usuário de seu BD      
-    public static String SENHA = "121296Pk#9";                         //sua senha de acesso
+    public static String LOGIN = "userzzz";                     //nome de um usuário de seu BD      
+    public static String SENHA = "123User@";                         //sua senha de acesso
     
     public static String URL = "";
     

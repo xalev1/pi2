@@ -20,20 +20,22 @@ public class Venda {
     private Date data;
     private float total;
     private int quantidadeItens;
+    private Usuario usuarioVenda;
 
-    public Venda(int idVenda, int clienteVenda, ArrayList<ItemVenda> produtos, Date data, float total, int quantidadeItens) {
+    public Venda(int idVenda, int clienteVenda, ArrayList<ItemVenda> produtos, Date data, float total, int quantidadeItens, Usuario idUsuarioVenda) {
         this.idVenda = idVenda;
         this.clienteVenda = clienteVenda;
         this.produtos = produtos;
         this.data = data;
         this.total = total;
         this.quantidadeItens = quantidadeItens;
+        this.usuarioVenda = idUsuarioVenda;
     }
 
     public Venda() {
-        this.produtos = new ArrayList<ItemVenda>();
     }
 
+    
     public int getIdVenda() {
         return idVenda;
     }
@@ -81,14 +83,16 @@ public class Venda {
     public void setQuantidadeItens(int quantidadeItens) {
         this.quantidadeItens = quantidadeItens;
     }
-    
-    public void adicionaItem(){
-        this.quantidadeItens++;
+
+    public Usuario getUsuarioVenda() {
+        return usuarioVenda;
     }
-    
-    public void removerItem(){
-        this.quantidadeItens--;
+
+    public void setUsuarioVenda(Usuario idUsuarioVenda) {
+        this.usuarioVenda = idUsuarioVenda;
     }
+
+    
     
     public float totaliza(){
         float total=0;
@@ -96,6 +100,14 @@ public class Venda {
             total+= produto.getTotal();
         }
         return total;
+    }
+
+    public void adicionaItem() {
+        this.quantidadeItens++;
+    }
+
+    public void removerItem() {
+        this.quantidadeItens--;
     }
     
 

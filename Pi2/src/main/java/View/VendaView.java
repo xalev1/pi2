@@ -12,6 +12,7 @@ import Model.Clientes;
 import Model.ItemVenda;
 import Model.Produtos;
 import Model.Venda;
+import Utils.UsuarioLogin;
 import java.sql.Date;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class VendaView extends javax.swing.JInternalFrame {
         this.desk = desk;
         cli = new Clientes();
         vend = new Venda();
+        vend.setUsuarioVenda(UsuarioLogin.getInstance(null).user);
+        vend.setProdutos(new ArrayList<ItemVenda>());
         txtData.setDate(new Date(System.currentTimeMillis()));
         tblCarrinho.setDefaultEditor(Object.class, null);
     }

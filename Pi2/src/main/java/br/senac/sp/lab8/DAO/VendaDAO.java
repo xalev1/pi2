@@ -9,6 +9,7 @@ import Controler.ClienteController;
 import Model.ItemVenda;
 import Model.Venda;
 import Model.VendaFiltros;
+import Utils.UsuarioLogin;
 import bd.connection.GerenciadorConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,13 +33,14 @@ public class VendaDAO {
         try {
             conexao = GerenciadorConexao.abrirConexao();
             if (v.getIdVenda() == 0) {
-                instrucaoSQL = conexao.prepareStatement("INSERT INTO vendas (idCliente,data_venda,total,quantidadeItens) VALUES(?,?,?,?)",
+                instrucaoSQL = conexao.prepareStatement("INSERT INTO vendas (idCliente,data_venda,total,quantidadeItens,idUsuario) VALUES(?,?,?,?,?)",
                         Statement.RETURN_GENERATED_KEYS);
 
                 instrucaoSQL.setInt(1, v.getClienteVenda());
                 instrucaoSQL.setDate(2, v.getData());
                 instrucaoSQL.setFloat(3, v.getTotal());
                 instrucaoSQL.setInt(4, v.getQuantidadeItens());
+                instrucaoSQL.setInt(5, UsuarioLogin.getInstance(null).user.getIdUsuario());
             } else {
                 instrucaoSQL = conexao.prepareStatement("UPDATE vendas SET idCliente = ?, data_venda = ?, total = ?, quantidadeItens = ? WHERE idVenda = ? ");
 

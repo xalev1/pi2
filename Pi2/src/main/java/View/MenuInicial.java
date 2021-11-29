@@ -5,7 +5,12 @@
  */
 package View;
 
+import Controler.UsuarioController;
+import Model.Usuario;
+import Utils.UsuarioLogin;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +23,17 @@ public class MenuInicial extends javax.swing.JFrame {
      */
     public MenuInicial() {
         initComponents();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        LoginModal login = new LoginModal(this, true);
+
+        login.setTitle("Message");
+        Usuario retorno = login.showDialog();
+        if (retorno == null) {
+            this.dispose();
+        } else {
+            UsuarioLogin.getInstance(UsuarioController.consultarUsuarioByLogin(retorno.getLoginUsuario()));
+            this.setTitle(this.getTitle() + " - " + retorno.getLoginUsuario());
+        }
     }
 
     /**
@@ -157,7 +172,7 @@ public class MenuInicial extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Cliente janelaClienteView = new Cliente(this.jDesktopPane1);
         this.jDesktopPane1.add(janelaClienteView);
-        janelaClienteView.setVisible(true);        
+        janelaClienteView.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
